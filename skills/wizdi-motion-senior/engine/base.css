@@ -1,0 +1,37 @@
+/* Moteur motion Wizdi — socle commun (tous formats : 9:16, 4:5, 16:9).
+   Polices : l'hébreu en Fredoka, le latin en Baloo — toute pile s'écrit "Baloo Latin", "Fredoka".
+   Les fichiers sont dans assets/fonts/ (copiés du kit de marque ; `python tools/brand.py` les rafraîchit). */
+@font-face {
+  font-family: "Baloo Latin";
+  src: url("assets/fonts/baloo-chettan-regular.ttf") format("truetype");
+  font-weight: 400 700;
+  unicode-range: U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F,
+                 U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
+}
+@font-face {
+  font-family: "Fredoka";
+  src: url("assets/fonts/fredoka-var-hebrew.woff2") format("woff2");
+  font-weight: 300 700;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+:root { --wiz: #23A4D8; --navy: #1E1B4B; --font: "Baloo Latin", "Fredoka", system-ui, sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #0b0a12; overflow: hidden; }
+body.preview { display: grid; place-items: center; min-height: 100vh; }
+#stage { position: relative; overflow: hidden; direction: rtl; font-family: var(--font); transform-origin: 50% 50%;
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+.abs { position: absolute; left: 0; top: 0; }
+.layer { position: absolute; inset: 0; }
+canvas.fx { position: absolute; inset: 0; pointer-events: none; }
+/* mots latins dans une ligne hébraïque (Wiz…, Wizdi, AI, 24/7) : isolés pour le bidi */
+.lat { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+.wordmark svg { display: block; width: 100%; height: auto; overflow: visible; }
+/* repli sans SVG (logos.js absent) : texte bicolore en Baloo, jamais en majuscules */
+.wiz-text { direction: ltr; unicode-bidi: isolate; font-family: "Baloo Latin", sans-serif; font-weight: 700; white-space: nowrap; line-height: 1; }
+.wiz-text b { color: #23A4D8; font-weight: 700; } .wiz-text i { font-style: normal; }
+/* barre de lecture (aperçu seulement) */
+.scrub { position: fixed; left: 0; right: 0; bottom: 0; height: 46px; display: flex; gap: 10px; align-items: center; padding: 0 14px;
+  background: rgba(0, 0, 0, .7); color: #fff; font: 14px system-ui; z-index: 99; direction: ltr; }
+.scrub input { flex: 1; }
+.scrub button { width: 40px; height: 30px; }
+.scrub select { height: 30px; }

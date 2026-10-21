@@ -1,0 +1,289 @@
+<meta charset="utf-8">
+<title>__TITLE__</title>
+<style>
+  :root { --bg:#101018; --panel:#1a1a26; --line:#2b2b3a; --ink:#e9e9f4; --muted:#9a9ab2; --acc:#8B46C8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 system-ui,Segoe UI,sans-serif;
+         height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+  header { padding:9px 14px; background:var(--panel); border-bottom:1px solid var(--line);
+           display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  h1 { font-size:14.5px; margin:0; font-weight:700; }
+  main { flex:1; display:flex; min-height:0; }
+  #stagewrap { flex:1; display:grid; place-items:center; background:#07070c; overflow:hidden; padding:10px; }
+  /* La scene : la base en fond, l'overlay warpe dans le quad par matrix3d. */
+  #stage { position:relative; transform-origin:center; }
+  #stage video { display:block; }
+  #ovwrap { position:absolute; left:0; top:0; overflow:hidden; transform-origin:0 0; }
+  #ovwrap video { position:absolute; }
+  aside { width:330px; flex-shrink:0; background:var(--panel); border-left:1px solid var(--line);
+          padding:12px; overflow:auto; }
+  .grp { margin-bottom:14px; }
+  .lab { font-size:12px; color:var(--muted); font-weight:600; margin-bottom:5px; display:flex;
+         justify-content:space-between; gap:8px; }
+  .val { color:var(--ink); font-variant-numeric:tabular-nums; }
+  input[type=range] { width:100%; accent-color:var(--acc); }
+  button { background:#262636; color:var(--ink); border:1px solid var(--line); border-radius:8px;
+           padding:8px 12px; cursor:pointer; font:inherit; }
+  button:hover { background:#31314a; }
+  button.pri { background:var(--acc); border-color:var(--acc); color:#fff; font-weight:700; }
+  .row { display:flex; gap:8px; }
+  .row > * { flex:1; }
+  /* mini-carte de crop */
+  #cropbox { position:relative; width:100%; border:1px solid var(--line); border-radius:8px;
+             overflow:hidden; background:#000; }
+  #cropbox video { width:100%; display:block; }
+  #croprect { position:absolute; border:2px solid #25ff7a; box-shadow:0 0 0 9999px rgba(0,0,0,0.45);
+              cursor:move; }
+  #crophandle { position:absolute; right:-7px; bottom:-7px; width:14px; height:14px; background:#25ff7a;
+                border-radius:3px; cursor:nwse-resize; }
+  #out { width:100%; height:92px; background:#0b0b12; color:#b7f7c8; border:1px solid var(--line);
+         border-radius:8px; padding:7px; font:11.5px/1.35 ui-monospace,Consolas,monospace; resize:vertical; }
+  .hint { font-size:11.5px; color:var(--muted); }
+  .tag { background:#262636; border:1px solid var(--line); border-radius:6px; padding:2px 7px;
+         font-size:11.5px; color:var(--muted); }
+</style>
+
+<header>
+  <h1>__TITLE__</h1>
+  <button id="play" class="pri">Lire</button>
+  <span class="tag" id="clock">0.00 / __BASEDUR__ s</span>
+  <span class="tag" id="speedtag">vitesse overlay ×1.00</span>
+  <span class="hint">Ce que tu vois ici = le rendu final.</span>
+</header>
+
+<main>
+  <div id="stagewrap">
+    <div id="stage">
+      <video id="base" src="__BASESRC__" muted playsinline></video>
+      <div id="ovwrap"><video id="ov" src="__OVSRC__" muted playsinline></video></div>
+    </div>
+  </div>
+
+  <aside>
+    <div class="grp">
+      <div class="lab"><span>Début de l'extrait (IN)</span><span class="val" id="inV">0.0 s</span></div>
+      <input type="range" id="inR" min="0" max="__OVDUR__" step="0.1" value="0">
+      <div class="lab" style="margin-top:8px"><span>Fin de l'extrait (OUT)</span><span class="val" id="outV">0.0 s</span></div>
+      <input type="range" id="outR" min="0" max="__OVDUR__" step="0.1" value="20">
+    </div>
+
+    <div class="grp">
+      <div class="lab"><span>Vitesse de la base</span><span class="val" id="baseRV">×1.00</span></div>
+      <input type="range" id="baseR" min="0.5" max="1.6" step="0.02" value="1">
+      <div class="hint">Ralentir la base allonge la boucle, donc ralentit aussi l'interface.</div>
+    </div>
+
+    <div class="grp">
+      <div class="lab"><span>Luminosité de l'écran</span><span class="val" id="scrV">1.00</span></div>
+      <input type="range" id="scrR" min="0.6" max="1.5" step="0.02" value="1">
+    </div>
+
+    <div class="grp">
+      <div class="lab"><span>Cadrage de l'interface</span><span class="hint">glisser · coin = taille</span></div>
+      <div id="cropbox">
+        <video id="cropvid" src="__OVSRC__" muted playsinline></video>
+        <div id="croprect"><div id="crophandle"></div></div>
+      </div>
+      <div class="hint" id="cropV" style="margin-top:5px"></div>
+      <div class="row" style="margin-top:7px">
+        <button id="cropfull">Tout l'écran</button>
+        <button id="cropcenter">Centrer</button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <button id="copy" class="pri" style="width:100%">Copier le JSON</button>
+      <textarea id="out" readonly style="margin-top:7px"></textarea>
+    </div>
+  </aside>
+</main>
+
+<script>
+const QUAD = __QUAD__, BW = __BW__, BH = __BH__, OW = __OW__, OH = __OH__;
+const BASEDUR = __BASEDUR__, OVDUR = __OVDUR__;
+const ASPECT = __ASPECT__;   // aspect du quad : le crop y est verrouille
+
+const base = document.getElementById('base'), ov = document.getElementById('ov');
+const ovwrap = document.getElementById('ovwrap'), stage = document.getElementById('stage');
+const cropvid = document.getElementById('cropvid'), croprect = document.getElementById('croprect');
+
+let IN = 0, OUT = Math.min(20, OVDUR), baseRate = 1, screenLum = 1;
+let crop = { x: 0, y: 0, w: 0, h: 0 };
+
+/* Homographie (0,0,w,h) -> quad, puis matrix3d CSS (colonnes). */
+function homography(w, h, q) {
+  const src = [[0,0],[w,0],[w,h],[0,h]];
+  const dst = [q.tl, q.tr, q.br, q.bl];
+  const A = [], b = [];
+  for (let i = 0; i < 4; i++) {
+    const [x, y] = src[i], [u, v] = dst[i];
+    A.push([x, y, 1, 0, 0, 0, -u*x, -u*y]); b.push(u);
+    A.push([0, 0, 0, x, y, 1, -v*x, -v*y]); b.push(v);
+  }
+  // Gauss-Jordan 8x8
+  const M = A.map((r, i) => [...r, b[i]]);
+  for (let c = 0; c < 8; c++) {
+    let p = c;
+    for (let r = c + 1; r < 8; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+    [M[c], M[p]] = [M[p], M[c]];
+    const d = M[c][c];
+    for (let k = c; k <= 8; k++) M[c][k] /= d;
+    for (let r = 0; r < 8; r++) {
+      if (r === c) continue;
+      const f = M[r][c];
+      for (let k = c; k <= 8; k++) M[r][k] -= f * M[c][k];
+    }
+  }
+  const k = M.map(r => r[8]);   // a b c d e f g h (k[0..7])
+  return `matrix3d(${k[0]},${k[3]},0,${k[6]},${k[1]},${k[4]},0,${k[7]},0,0,1,0,${k[2]},${k[5]},0,1)`;
+}
+
+function applyCrop() {
+  ovwrap.style.width = crop.w + 'px';
+  ovwrap.style.height = crop.h + 'px';
+  ov.style.width = OW + 'px';
+  ov.style.height = OH + 'px';
+  ov.style.left = (-crop.x) + 'px';
+  ov.style.top = (-crop.y) + 'px';
+  ovwrap.style.transform = homography(crop.w, crop.h, QUAD);
+  ovwrap.style.filter = `brightness(${screenLum})`;
+  document.getElementById('cropV').textContent =
+    `x ${Math.round(crop.x)} · y ${Math.round(crop.y)} · ${Math.round(crop.w)}×${Math.round(crop.h)}`;
+  syncRect();
+}
+
+function fitStage() {
+  const r = document.getElementById('stagewrap').getBoundingClientRect();
+  const s = Math.min(r.width / BW, r.height / BH) * 0.98;
+  stage.style.width = BW + 'px'; stage.style.height = BH + 'px';
+  stage.style.transform = `scale(${s})`;
+  base.style.width = BW + 'px'; base.style.height = BH + 'px';
+}
+
+/* ---- synchronisation base <-> overlay ---- */
+function speed() { return (OUT - IN) / (BASEDUR / baseRate); }
+function tick() {
+  if (!base.paused) {
+    const p = base.currentTime / BASEDUR;                 // 0..1 dans la boucle
+    const want = IN + p * (OUT - IN);
+    if (Math.abs(ov.currentTime - want) > 0.18) ov.currentTime = want;
+    document.getElementById('clock').textContent =
+      base.currentTime.toFixed(2) + ' / ' + BASEDUR.toFixed(2) + ' s';
+  }
+  requestAnimationFrame(tick);
+}
+function refreshRates() {
+  base.playbackRate = baseRate;
+  const sp = speed();
+  ov.playbackRate = Math.max(0.0625, Math.min(16, sp));
+  document.getElementById('speedtag').textContent = 'vitesse overlay ×' + sp.toFixed(2);
+  emit();
+}
+
+/* ---- rectangle de crop (verrouille a l'aspect du quad) ---- */
+function syncRect() {
+  const bw = cropvid.clientWidth || 1, s = bw / OW;
+  croprect.style.left = (crop.x * s) + 'px';
+  croprect.style.top = (crop.y * s) + 'px';
+  croprect.style.width = (crop.w * s) + 'px';
+  croprect.style.height = (crop.h * s) + 'px';
+}
+function clampCrop() {
+  crop.w = Math.max(120, Math.min(crop.w, OW));
+  crop.h = crop.w / ASPECT;
+  if (crop.h > OH) { crop.h = OH; crop.w = crop.h * ASPECT; }
+  crop.x = Math.max(0, Math.min(crop.x, OW - crop.w));
+  crop.y = Math.max(0, Math.min(crop.y, OH - crop.h));
+}
+let drag = null;
+croprect.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  const mode = e.target.id === 'crophandle' ? 'size' : 'move';
+  drag = { mode, sx: e.clientX, sy: e.clientY, ox: crop.x, oy: crop.y, ow: crop.w };
+  croprect.setPointerCapture(e.pointerId);
+});
+window.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const s = (cropvid.clientWidth || 1) / OW;
+  const dx = (e.clientX - drag.sx) / s, dy = (e.clientY - drag.sy) / s;
+  if (drag.mode === 'move') { crop.x = drag.ox + dx; crop.y = drag.oy + dy; }
+  else { crop.w = drag.ow + dx; }
+  clampCrop(); applyCrop(); emit();
+});
+window.addEventListener('pointerup', () => { drag = null; });
+
+/* ---- sortie JSON ---- */
+function emit() {
+  const j = {
+    in: +IN.toFixed(1), out: +OUT.toFixed(1), speed: +speed().toFixed(3),
+    baseRate: +baseRate.toFixed(2), screen: +screenLum.toFixed(2),
+    crop: { x: Math.round(crop.x), y: Math.round(crop.y), w: Math.round(crop.w), h: Math.round(crop.h) }
+  };
+  document.getElementById('out').value = JSON.stringify(j);
+  try { localStorage.setItem('__KEY__', JSON.stringify(j)); } catch (e) {}
+}
+
+/* ---- controles ---- */
+const inR = document.getElementById('inR'), outR = document.getElementById('outR');
+inR.oninput = () => {
+  IN = +inR.value;
+  if (OUT - IN < 2) { OUT = Math.min(OVDUR, IN + 2); outR.value = OUT; }
+  document.getElementById('inV').textContent = IN.toFixed(1) + ' s';
+  document.getElementById('outV').textContent = OUT.toFixed(1) + ' s';
+  ov.currentTime = IN; refreshRates();
+};
+outR.oninput = () => {
+  OUT = +outR.value;
+  if (OUT - IN < 2) { IN = Math.max(0, OUT - 2); inR.value = IN; }
+  document.getElementById('inV').textContent = IN.toFixed(1) + ' s';
+  document.getElementById('outV').textContent = OUT.toFixed(1) + ' s';
+  refreshRates();
+};
+document.getElementById('baseR').oninput = e => {
+  baseRate = +e.target.value;
+  document.getElementById('baseRV').textContent = '×' + baseRate.toFixed(2);
+  refreshRates();
+};
+document.getElementById('scrR').oninput = e => {
+  screenLum = +e.target.value;
+  document.getElementById('scrV').textContent = screenLum.toFixed(2);
+  applyCrop(); emit();
+};
+document.getElementById('cropfull').onclick = () => {
+  crop.w = OW; clampCrop(); crop.x = (OW - crop.w) / 2; crop.y = (OH - crop.h) / 2;
+  applyCrop(); emit();
+};
+document.getElementById('cropcenter').onclick = () => {
+  crop.x = (OW - crop.w) / 2; crop.y = (OH - crop.h) / 2; applyCrop(); emit();
+};
+document.getElementById('play').onclick = () => {
+  if (base.paused) {
+    base.play(); ov.play(); cropvid.play();
+    document.getElementById('play').textContent = 'Pause';
+  } else {
+    base.pause(); ov.pause(); cropvid.pause();
+    document.getElementById('play').textContent = 'Lire';
+  }
+};
+document.getElementById('copy').onclick = async () => {
+  emit();
+  try { await navigator.clipboard.writeText(document.getElementById('out').value);
+        document.getElementById('copy').textContent = 'Copié !';
+        setTimeout(() => document.getElementById('copy').textContent = 'Copier le JSON', 1600); }
+  catch (e) { document.getElementById('out').select(); }
+};
+
+/* la base boucle ; l'overlay est pilote par le tick */
+base.loop = true;
+base.addEventListener('loadedmetadata', () => {
+  fitStage();
+  crop.w = OW; clampCrop(); crop.x = 0; crop.y = 0;
+  OUT = Math.min(OVDUR, 20); outR.value = OUT; inR.value = IN;
+  document.getElementById('inV').textContent = IN.toFixed(1) + ' s';
+  document.getElementById('outV').textContent = OUT.toFixed(1) + ' s';
+  applyCrop(); refreshRates();
+});
+cropvid.addEventListener('loadedmetadata', syncRect);
+window.addEventListener('resize', () => { fitStage(); syncRect(); });
+requestAnimationFrame(tick);
+</script>

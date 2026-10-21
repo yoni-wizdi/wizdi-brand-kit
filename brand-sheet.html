@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wizdi · לוח המותג</title>
+<link rel="icon" href="logos/favicons/wizdi-32.png">
+<link rel="stylesheet" href="tokens/wizdi-tokens.css">
+<style>
+  body{margin:0;background:var(--page)}
+  .sheet{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:40px}
+  .lockup{display:flex;align-items:center;gap:12px}
+  .lockup img{width:52px;height:52px;object-fit:contain}
+  .lockup [data-wiz-word]{font-size:40px;line-height:1}
+  h2{font-size:28px;margin:0 0 6px}
+  .lede{color:var(--ink-2);margin:0 0 22px;font-size:16.5px}
+  section{margin-bottom:56px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--accent);letter-spacing:.02em;margin-bottom:6px}
+  .kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+  /* wordmarks */
+  .wiz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .wiz-tile{border-radius:var(--r-card);padding:26px 22px 18px;background:var(--mc-p);border:1px solid rgba(255,255,255,.7);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:14px;min-height:190px}
+  .wiz-tile [data-wiz-word]{font-size:clamp(40px,4vw,54px);line-height:1;display:block;min-height:1.1em}
+  .wiz-tile .sw{display:flex;gap:8px;flex-wrap:wrap}
+  .sw span{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-2);background:rgba(255,255,255,.75);border-radius:999px;padding:4px 10px 4px 5px;direction:ltr}
+  .sw i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.08)}
+  .wiz-tile .row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+  .wiz-tile .nm{font-size:13px;color:var(--muted)}
+  .replay{font:600 13px var(--font-wizdi);color:var(--ink);background:rgba(255,255,255,.8);border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer}
+  .replay:hover{background:#fff}
+  /* palette */
+  .pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .pal div{border-radius:16px;padding:14px 12px 10px;min-height:92px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(0,0,0,.06);font-size:12.5px;font-weight:600}
+  .pal div small{display:block;font-weight:500;opacity:.75;direction:ltr;text-align:right}
+  /* fonts */
+  .spec{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .spec .glass-wizdi{padding:22px}
+  .spec .big{font-size:38px;line-height:1.15;margin:0 0 6px}
+  .spec .w3{font-weight:300}.spec .w5{font-weight:500}.spec .w7{font-weight:700}
+  .spec code{font:13px ui-monospace,monospace;direction:ltr;display:block;text-align:left;color:var(--ink-2);background:rgba(255,255,255,.7);padding:8px 10px;border-radius:10px;margin-top:10px;white-space:pre-wrap}
+  /* components */
+  .comp{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+  .cards .glass-wizdi{padding:18px;display:flex;flex-direction:column;gap:8px}
+  .cards img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px}
+  /* do / don't */
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .dd .glass-wizdi{padding:20px 22px}
+  .dd h3{margin:0 0 10px;font-size:19px}
+  .dd ul{margin:0;padding-inline-start:18px;color:var(--ink-2);font-size:15px;line-height:1.6}
+  .dd .no h3{color:#B4511A}.dd .ok h3{color:#117A47}
+  /* timing */
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:13px}
+  td code{direction:ltr;display:inline-block;font:13px ui-monospace,monospace;background:rgba(255,255,255,.7);padding:1px 6px;border-radius:6px}
+  .posters{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .posters img{width:100%;border-radius:14px;box-shadow:var(--shadow-card)}
+  .owls{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .owls figure{margin:0;text-align:center;font-size:13px;color:var(--ink-2)}
+  .owls img{height:140px;width:auto;display:block;margin:0 auto 6px}
+  @media (max-width:900px){.wiz-grid,.cards{grid-template-columns:1fr 1fr}.spec,.dd{grid-template-columns:1fr}.posters{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:560px){.wiz-grid,.cards{grid-template-columns:1fr}table{display:block;overflow-x:auto}}
+</style>
+</head>
+<body class="wizdi">
+<div class="sheet">
+  <header class="top">
+    <div class="lockup"><img src="logos/wizdi-owl.png" alt=""><span data-wiz-word="Wizdi" data-fast="1" aria-label="Wizdi"></span></div>
+    <div style="text-align:left;color:var(--muted);font-size:13.5px">לוח המותג · 08/10/2026 · מקור: studio-wizdi.com</div>
+  </header>
+
+  <section>
+    <span class="kicker">הלוגו</span>
+    <h2>Wizdi: ינשוף שטוח בלוגו בלבד, Wizi תלת-ממדי בכל השאר</h2>
+    <p class="lede">המילה Wizdi תמיד באותיות לטיניות, בכחול <code dir="ltr">#23A4D8</code>, מתוך תווי Baloo. לעולם לא וויזדי, לעולם לא באותיות גדולות.</p>
+    <div class="owls">
+      <figure><img src="logos/wizdi-owl.png" alt="">הינשוף השטוח — רק בלוגו</figure>
+      <figure><img src="logos/wizdi-owl-3d.webp" alt="">Wizi התלת-ממדי — בכל ויזואל</figure>
+      <figure><img src="logos/wizdi-wordmark.svg" alt="" style="height:70px">wordmark · <code dir="ltr">logos/wizdi-wordmark.svg</code></figure>
+    </div>
+  </section>
+
+  <section>
+    <span class="kicker">כל ה-Wiz</span>
+    <h2>«Wiz» כחול + הסיומת בצבע המודול, והאנימציה של האתר</h2>
+    <p class="lede">כל לוגו מצויר מהתווים האמיתיים (<code dir="ltr">logos/wiz/*.svg</code>) ומופיע כמו באתר: הקו נמשך, המילוי עולה, הקו נעלם. לחצי «לנגן שוב» כדי לראות.</p>
+    <div class="wiz-grid" id="wizGrid"></div>
+  </section>
+
+  <section>
+    <span class="kicker">צבעים</span>
+    <h2>הפלטה</h2>
+    <div class="pal" id="pal"></div>
+  </section>
+
+  <section>
+    <span class="kicker">טיפוגרפיה</span>
+    <h2>עברית ב-Fredoka, לטינית ב-Baloo, בכל מקום</h2>
+    <div class="spec">
+      <div class="glass-wizdi">
+        <p class="big w7">הספרים שאתם מכירים.</p>
+        <p class="big w5">כוחות שעוד לא ראיתם.</p>
+        <p class="big w3">למידה בקצב אישי, בלי שיפוטיות</p>
+        <p style="margin:6px 0 0;color:var(--ink-2)">Fredoka · משתנה 300–700 · תת-קבוצה עברית · 8.8KB</p>
+      </div>
+      <div class="glass-wizdi">
+        <p class="big" dir="ltr" style="text-align:left">WizPlay · WizBook · ב-Wizdi · 672 · 24/7 · AI</p>
+        <p style="margin:6px 0 0;color:var(--ink-2)">Baloo Latin · כל אות לטינית, ספרה וסימן פיסוק. מגיע אליה לבד דרך <code dir="ltr" style="display:inline;padding:1px 6px">unicode-range</code>, בלי לסמן טקסט.</p>
+        <code>font-family: "Baloo Latin", "Fredoka", ui-rounded, system-ui, sans-serif;
+/* Baloo Latin FIRST (latin range), Fredoka right after (hebrew range). Never the other way. */</code>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="kicker">רכיבים</span>
+    <h2>כפתורים, תגיות, כרטיס זכוכית</h2>
+    <div class="comp">
+      <button class="btn-wizdi btn-wizdi--cta">קבעו הדגמה חינם</button>
+      <button class="btn-wizdi btn-wizdi--brand">לכל המוצרים</button>
+      <button class="btn-wizdi btn-wizdi--module" style="--mc:#FF5FA2;--mc-d:#E8467C">גלו את WizPlay</button>
+      <button class="btn-wizdi btn-wizdi--module" style="--mc:#15A19E;--mc-d:#0F8684">גלו את WizBook</button>
+      <button class="btn-wizdi btn-wizdi--glass">נסו את WizChat עכשיו</button>
+      <span class="badge-wizdi badge-wizdi--live">קיים ועובד</span>
+      <span class="badge-wizdi badge-wizdi--launch">🚀 ההשקה</span>
+      <span class="badge-wizdi badge-wizdi--soon">בקרוב</span>
+      <span class="chip-wizdi">אישור משרד החינוך</span>
+      <span class="chip-wizdi">עברית + ערבית</span>
+    </div>
+    <div class="cards">
+      <div class="glass-wizdi" style="--mc:#15A19E"><img src="references/pastel/wizbook-b.webp" alt=""><span data-wiz-word="WizBook" data-accent="#15A19E" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">הספר החי שמשנה את הלמידה</p></div>
+      <div class="glass-wizdi" style="--mc:#7B5CF0"><img src="references/pastel/wizchat-b.webp" alt=""><span data-wiz-word="WizChat" data-accent="#7B5CF0" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">סוכן למידה ושיח אישי</p></div>
+      <div class="glass-wizdi" style="--mc:#F28C28"><img src="references/pastel/wizplan-b.webp" alt=""><span data-wiz-word="WizPlan" data-accent="#F28C28" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">מערך שיעור שלם. מוכן להקרנה בקליק.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="kicker">הפניות</span>
+    <h2>הפוסטרים הרשמיים: הסגנון והצבע של כל מודול</h2>
+    <div class="posters">
+      <img src="references/campaign/WizPlay.jpg" alt="WizPlay"><img src="references/campaign/WizPlan.jpg" alt="WizPlan"><img src="references/campaign/WizChat.jpg" alt="WizChat">
+      <img src="references/campaign/WizBook.jpg" alt="WizBook"><img src="references/campaign/WizBox.jpg" alt="WizBox"><img src="references/campaign/WizSpace.jpg" alt="WizSpace">
+    </div>
+  </section>
+
+  <section>
+    <span class="kicker">אנימציה</span>
+    <h2>הופעת לוגו של מודול, צעד אחר צעד</h2>
+    <table>
+      <tr><th>שלב</th><th>משך</th><th>ease</th><th>הערה</th></tr>
+      <tr><td>טריגר</td><td>כניסה למסך, 35 %</td><td>—</td><td>פעם אחת. השהיה של 1.1 שניות כדי לא לרוץ יחד עם לוגו הכותרת.</td></tr>
+      <tr><td>הקו נמשך</td><td>2.4 שניות</td><td><code>power2.inOut</code></td><td><code>stroke-width 3</code>, מילוי 0</td></tr>
+      <tr><td>המילוי עולה</td><td>1 שנייה</td><td><code>power2.out</code></td><td>מתחיל 0.5 שנייה לפני סוף הקו</td></tr>
+      <tr><td>הקו נעלם</td><td>0.7 שנייה</td><td><code>power2.out</code></td><td>מתחיל 0.6 שנייה לפני סוף המילוי</td></tr>
+      <tr><td>לוגו Wizdi בכותרת</td><td>קו 1.6 · מילוי 0.7 (−0.3) · קו נעלם 0.45 (−0.45)</td><td>אותו דבר</td><td>בלי השהיה, <code>stroke-width 1.6</code> (<code>data-fast="1"</code>)</td></tr>
+      <tr><td>prefers-reduced-motion</td><td>0</td><td>—</td><td>לוגו מלא מיד. גם בלי JavaScript.</td></tr>
+      <tr><td>תנועה בממשק</td><td>≤ 300ms</td><td><code>ease-out</code></td><td>לחיצה <code>scale(.985)</code>, לעולם לא <code>scale(0)</code></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <span class="kicker">כללים</span>
+    <h2>עושים / לא עושים</h2>
+    <div class="dd">
+      <div class="glass-wizdi ok"><h3>✓ עושים</h3><ul>
+        <li>Wizdi תמיד לטיני: ב-Wizdi, ל-Wizdi</li><li>לוגואי Wiz מ-SVG, Wiz כחול + סיומת בצבע המודול</li>
+        <li>Wizi תלת-ממדי עם לוחית המודול, דמויות אמיתיות</li><li>טקסט לקוח מילה במילה</li>
+        <li>RTL: הקריאה מתחילה מימין</li><li>בדיקה ב-1440, 1920 ו-390</li><li>פוקוס נראה, ניגודיות 4.5:1, reduced-motion</li>
+      </ul></div>
+      <div class="glass-wizdi no"><h3>✕ לא עושים</h3><ul>
+        <li>וויזדי בעברית, WIZDI באותיות גדולות</li><li>ינשוף שטוח מחוץ ללוגו</li>
+        <li>טקסט עברי בתוך תמונה שנוצרה ב-AI</li><li>צילומי מסך מזויפים של הממשק</li>
+        <li>עברית ב-Heebo/Rubik/Assistant בעבודה חדשה</li><li>תפריטים נפתחים ורשתות של עשרות תמונות</li>
+        <li>Inter/Roboto, אימוג'י כאייקונים, תת-דומיינים, קישורי lovable</li>
+      </ul></div>
+    </div>
+  </section>
+</div>
+
+<script src="components/wiz-word.js"></script>
+<script>
+  var MODULES = [
+    ["WizPlay","#FF5FA2","#E8467C","#FCD7E3","ורוד"],["WizPlan","#F28C28","#D9701A","#FFE3C8","כתום"],["WizChat","#7B5CF0","#6246D6","#E8DCFA","סגול"],
+    ["WizBook","#15A19E","#0F8684","#CFEEEA","טורקיז"],["WizBox","#C9742E","#A85C1F","#F8DCCF","ברונזה"],["WizSpace","#C13BC9","#A02FA7","#FDF0CF","מג'נטה · רקע זהוב"],
+    ["WizGen","#3ED98A","#1FB86E","#D6F5E6","ירוק"],["WizMap","#38C6FF","#1FA8E0","#D9F1FF","תכלת"],["WizLab","#F06ABC","#D44FA3","#FBDDEF","פוקסיה · בקרוב"],
+    ["WizBuddy","#1E1B4B","#1D3F8F","#5FD6FF","הבוט של מרכז ההדרכה · Buddy לבן על הלוחית"]
+  ];
+  var grid = document.getElementById('wizGrid');
+  MODULES.forEach(function(m){
+    var t = document.createElement('div'); t.className = 'wiz-tile'; t.style.setProperty('--mc', m[1]); t.style.setProperty('--mc-p', m[3]);
+    t.innerHTML = '<span data-wiz-word="' + m[0] + '" data-accent="' + m[1] + '"></span>' +
+      '<div class="sw"><span><i style="background:' + m[1] + '"></i>' + m[1] + '</span><span><i style="background:' + m[2] + '"></i>' + m[2] + '</span><span><i style="background:' + m[3] + '"></i>' + m[3] + '</span></div>' +
+      '<div class="row"><span class="nm">' + m[4] + '</span><button class="replay" type="button">לנגן שוב</button></div>';
+    grid.appendChild(t);
+    t.querySelector('.replay').addEventListener('click', function(){ WizWord.replay(t.querySelector('[data-wiz-word]')); });
+  });
+  var PAL = [["דיו","#2A2550","#fff"],["דיו משני","#4A4573","#fff"],["מעומעם","#726F98","#fff"],["רקע דף","#FBFAFF","#2A2550"],["רקע לבנדר","#F4F2FF","#2A2550"],
+    ["זוהר לבנדר","#D9CFFD","#2A2550"],["זוהר שמיים","#C6E2FF","#2A2550"],["זוהר מנטה","#C9F1E4","#2A2550"],["זוהר אפרסק","#FFE1CB","#2A2550"],["זוהר ורוד","#FFD5E4","#2A2550"],
+    ["כחול Wiz","#23A4D8","#fff"],["סגול פעולה","#7B6CF6","#fff"],["ירוק אישור","#1A9E5C","#fff"],["גרדיאנט המותג","linear-gradient(135deg,#8F7DFF 0%,#6FB9FF 56%,#62DCC3 100%)","#fff"],["כפתור ראשי","linear-gradient(135deg,#FF8A3D 0%,#FF5F7E 100%)","#fff"]];
+  var pal = document.getElementById('pal');
+  PAL.forEach(function(c){ var d = document.createElement('div'); d.style.background = c[1]; d.style.color = c[2]; d.innerHTML = c[0] + '<small>' + (c[1].indexOf('gradient') === 0 ? c[1].replace('linear-gradient(135deg,','').replace(')','') : c[1]) + '</small>'; pal.appendChild(d); });
+  WizWord.init();
+</script>
+</body>
+</html>

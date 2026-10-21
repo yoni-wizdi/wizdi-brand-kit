@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- Wizdi Avatar Helper — progressive storyboard template.
+     Personalize: __TITLE__ __FORMAT__ __VOICE__ __WORLD__ ; fill BEATS ; append to BUILT per scene.
+     For Hebrew/Arabic set <html dir="rtl">. Translate visible UI labels to the user's language. -->
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__TITLE__</title>
+<style>
+  :root{
+    --bg:#fdf6ec; --card:#fff; --ink:#2b2b3a; --muted:#6b6b7b;
+    --blue:#3f93d6; --blue-d:#2c6fa8; --orange:#f39a2b;
+    --avatar:#3f93d6; --broll:#9b6cc9; --ok:#2faa6a; --line:#ece2d2;
+    --shadow:0 6px 22px rgba(60,50,30,.10);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI","Assistant","Heebo",Arial,sans-serif;color:var(--ink);
+    line-height:1.6;background:
+     radial-gradient(1200px 500px at 80% -50px,#fff3df,transparent),
+     radial-gradient(900px 400px at 0% 0%,#eaf4fd,transparent),var(--bg)}
+  .wrap{max-width:1040px;margin:0 auto;padding:22px 18px 80px}
+  header.app{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .owl{width:56px;height:56px;border-radius:50%;background:linear-gradient(160deg,#bfe0fb,#5aa6e0);
+    display:grid;place-items:center;box-shadow:var(--shadow);flex:0 0 auto}
+  h1{font-size:1.5rem;margin:0}
+  .sub{color:var(--muted);margin:.15rem 0 0;font-size:.95rem}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;
+    font-size:.82rem;box-shadow:var(--shadow);white-space:nowrap}
+  .chip b{color:var(--blue-d)}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;
+    box-shadow:var(--shadow);margin:14px 0}
+  .panel h2{margin:.1rem 0 .5rem;font-size:1.05rem}
+  details summary{cursor:pointer;font-weight:600;color:var(--blue-d);outline:none}
+  ol.steps{margin:.4rem 0;padding-inline-start:1.2rem} ol.steps li{margin:.28rem 0}
+  code.btn{background:#eef5fc;border:1px solid #d6e7f6;border-radius:6px;padding:1px 6px;
+    font-size:.86em;color:#1f5b8c;direction:ltr;display:inline-block}
+  .ref{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .dz{flex:1 1 280px;min-height:130px;border:2px dashed #cdbfa8;border-radius:14px;background:#fffaf1;
+    display:grid;place-items:center;text-align:center;color:var(--muted);padding:18px;cursor:pointer}
+  .dz:hover,.dz.drag{border-color:var(--blue);background:#f2f8fe;color:var(--blue-d)}
+  .ref img{max-height:180px;max-width:100%;border-radius:12px;box-shadow:var(--shadow)}
+  .ref .hint{flex:1 1 220px;font-size:.9rem;color:var(--muted)}
+  .progress-wrap{position:sticky;top:0;z-index:5;background:rgba(253,246,236,.92);backdrop-filter:blur(6px);
+    padding:10px 0 6px;margin-bottom:4px;border-bottom:1px solid var(--line)}
+  .bar{height:12px;background:#eee2cf;border-radius:999px;overflow:hidden}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--ok));transition:width .35s}
+  .pmeta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-top:4px}
+  .nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .nav a{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:#fff;
+    border:1px solid var(--line);font-size:.82rem;text-decoration:none;color:var(--ink)}
+  .nav a.built{border-color:var(--blue);color:var(--blue-d);font-weight:700}
+  .nav a.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+  .shot{scroll-margin-top:120px}
+  .shot.pending{opacity:.7;border-style:dashed}
+  .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .num{font-weight:800;font-size:1.15rem;color:var(--blue-d)}
+  .badge{font-size:.74rem;padding:3px 9px;border-radius:999px;color:#fff;font-weight:600}
+  .badge.avatar{background:var(--avatar)} .badge.broll{background:var(--broll)} .badge.pending{background:#b8ab95}
+  .dur{font-size:.8rem;color:var(--muted);margin-inline-start:auto}
+  .line{background:#fff7e9;border:1px solid #f3e3c4;border-inline-start:5px solid var(--orange);
+    border-radius:10px;padding:10px 12px;margin:10px 0;font-size:1.04rem;font-weight:600}
+  .meta-row{font-size:.92rem;margin:3px 0} .meta-row b{color:var(--blue-d)}
+  pre.prompt{direction:ltr;text-align:left;white-space:pre-wrap;word-break:break-word;background:#10243a;
+    color:#dcebfb;border-radius:10px;padding:12px 14px;font-size:.85rem;
+    font-family:"Cascadia Code",Consolas,monospace;overflow:auto;margin:8px 0}
+  .perf{background:#f3eefb;border:1px solid #e3d6f5;border-radius:8px;padding:8px 10px;font-size:.88rem;
+    direction:ltr;text-align:left}
+  .tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+  button.act{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;
+    font-size:.85rem;color:var(--ink)} button.act:hover{background:#eef5fc;border-color:var(--blue)}
+  select.status{border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.85rem;background:#fff}
+  .attach{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;margin-top:8px}.attach .box{flex:1 1 240px}
+  .attach video,.attach img{max-width:100%;max-height:220px;border-radius:10px;margin-top:8px;box-shadow:var(--shadow)}
+  textarea.notes{width:100%;min-height:52px;border:1px solid var(--line);border-radius:8px;padding:8px;
+    font-family:inherit;font-size:.9rem;resize:vertical}
+  .seg{border-top:1px dashed var(--line);margin:12px 0 8px;padding-top:10px}
+  .seg .lbl{font-size:.78rem;color:var(--muted);font-weight:700;margin-bottom:4px}
+  .waiting{color:var(--muted);font-style:italic}
+  footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:26px}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);
+    color:#fff;padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="app">
+    <div class="owl" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 64 64" fill="none">
+        <ellipse cx="32" cy="36" rx="20" ry="22" fill="#fff"/>
+        <circle cx="24" cy="30" r="8" fill="#fff" stroke="#2c6fa8" stroke-width="2"/>
+        <circle cx="40" cy="30" r="8" fill="#fff" stroke="#2c6fa8" stroke-width="2"/>
+        <circle cx="24" cy="30" r="3.4" fill="#3a2f25"/><circle cx="40" cy="30" r="3.4" fill="#3a2f25"/>
+        <path d="M30 38 l4 5 l-4 0 z" fill="#f39a2b"/>
+        <path d="M16 14 q6 6 8 12 M48 14 q-6 6 -8 12" stroke="#2c6fa8" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div><h1>__TITLE__</h1><p class="sub">Scene-by-scene storyboard · lip-sync avatar</p></div>
+  </header>
+
+  <div class="chips">
+    <span class="chip">Format: <b>__FORMAT__</b></span>
+    <span class="chip">Voice: <b>__VOICE__</b> (one voice for all)</span>
+    <span class="chip">World: <b>__WORLD__</b></span>
+    <span class="chip" id="chipCount">Scenes: <b>0</b></span>
+  </div>
+
+  <section class="panel">
+    <h2>Reference image (locked)</h2>
+    <div class="ref">
+      <div id="dz" class="dz"><div><div style="font-size:1.5rem">&#10515;</div>Drag the character image here<br>or click to choose
+        <input id="refInput" type="file" accept="image/*" hidden></div></div>
+      <div id="refShow" style="display:none"><img id="refImg" alt="reference"></div>
+      <p class="hint">Upload once in <code class="btn">Omni Flash</code> per scene via <code class="btn">+</code> in the prompt bar.
+        The SAME image every scene — never regenerate the face.
+        <button class="act" id="refClear" style="margin-top:8px;display:none">Remove</button></p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <details><summary>How to generate each scene in Omni</summary>
+      <ol class="steps">
+        <li>New generation → model <code class="btn">Omni Flash</code>.</li>
+        <li>Add the reference: prompt bar <code class="btn">+</code> → upload the character image (same one every scene).</li>
+        <li>Voice: <code class="btn">Voices</code> → pick one voice, fill <code class="btn">Customize Performance (optional)</code> with the scene tone → <code class="btn">Select voice</code>.</li>
+        <li>Paste the English prompt into <code class="btn">What would you like to create?</code>.</li>
+        <li>Settings: <code class="btn">__FORMAT__</code>, <code class="btn">10s</code>, <code class="btn">x1</code> test then <code class="btn">x4</code> final. Generate.</li>
+        <li>B-roll scenes: generate without lip-sync, lay the avatar voice-over on top in edit.</li>
+      </ol>
+    </details>
+  </section>
+
+  <div class="progress-wrap">
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="pmeta"><span id="barTxt">0 / 0 scenes built</span><span>click a number to jump</span></div>
+    <div class="nav" id="nav"></div>
+  </div>
+
+  <div id="shots"></div>
+  <footer>Interactive working file · statuses &amp; notes are saved in your browser.</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// All confirmed beats (roadmap). Fill from Step 3: {n, line, dur}
+const BEATS = [ /* __BEATS__ */ ];
+
+// Validated scenes are appended here, one per validation (Step 5).
+const BUILT = {
+// __SCENES_START__
+// __SCENES_END__
+};
+
+const KEY="wizdi_sb_"+encodeURIComponent(document.title);
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+let state=load(); state.shots=state.shots||{};
+
+let tT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),1400);}
+function copy(t){(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject())
+  .then(()=>toast('Copied'),()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);
+  a.select();try{document.execCommand('copy');toast('Copied')}catch(e){}a.remove();});}
+function esc(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escA(t){return (t||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+// reference
+const dz=document.getElementById('dz'),refInput=document.getElementById('refInput'),
+ refShow=document.getElementById('refShow'),refImg=document.getElementById('refImg'),refClear=document.getElementById('refClear');
+function showRef(d){refImg.src=d;refShow.style.display='';dz.style.display='none';refClear.style.display='';}
+if(state.ref) showRef(state.ref);
+dz.onclick=()=>refInput.click();
+dz.ondragover=e=>{e.preventDefault();dz.classList.add('drag')};
+dz.ondragleave=()=>dz.classList.remove('drag');
+dz.ondrop=e=>{e.preventDefault();dz.classList.remove('drag');if(e.dataTransfer.files[0])readRef(e.dataTransfer.files[0])};
+refInput.onchange=e=>{if(e.target.files[0])readRef(e.target.files[0])};
+refClear.onclick=()=>{state.ref=null;save(state);refShow.style.display='none';dz.style.display='';refClear.style.display='none'};
+function readRef(f){const r=new FileReader();r.onload=()=>{state.ref=r.result;save(state);showRef(r.result);toast('Reference loaded')};r.readAsDataURL(f);}
+
+// render
+const shotsEl=document.getElementById('shots'),navEl=document.getElementById('nav');
+const TYPE={avatar:{t:'Avatar · lip-sync',c:'avatar'},broll:{t:'B-roll + voice-over',c:'broll'}};
+BEATS.forEach(beat=>{
+  const b=BUILT[beat.n], st=state.shots[beat.n]||{status:'todo',notes:''};
+  const card=document.createElement('section');card.className='panel shot'+(b?'':' pending');card.id='shot'+beat.n;
+  let html=`<div class="top"><span class="num">Scene ${beat.n}</span>`
+    +`<span class="badge ${b?TYPE[b.type].c:'pending'}">${b?TYPE[b.type].t:'pending'}</span>`
+    +`<span class="dur">${esc(beat.dur||'')}</span></div>`
+    +`<div class="line">${esc(beat.line)} <button class="act" data-c="line">Copy line</button></div>`;
+  if(b){
+    html+=`<div class="meta-row"><b>Scene:</b> ${esc(b.scene)}</div>`
+      +`<div class="meta-row"><b>Camera:</b> ${esc(b.camera)}</div>`
+      +`<div class="meta-row"><b>Tone:</b> ${esc(b.tone)}</div>`
+      +`<div class="seg"><div class="lbl">English prompt — paste into What would you like to create?</div></div>`
+      +`<pre class="prompt">${esc(b.prompt)}</pre>`
+      +`<div class="tools"><button class="act" data-c="prompt">Copy prompt</button>`
+      +`<button class="act" data-c="perf">Copy tone (Customize Performance)</button></div>`
+      +`<div class="perf"><b>Customize Performance (optional):</b> ${esc(b.perf)}</div>`
+      +`<div class="seg"><div class="lbl">Status · result · notes</div></div>`
+      +`<div class="tools"><select class="status">`
+      +`<option value="todo">Not started</option><option value="work">In progress</option><option value="done">Done</option></select>`
+      +`<label class="act" style="cursor:pointer">Attach result<input type="file" accept="video/*,image/*" hidden class="resIn"></label></div>`
+      +`<div class="attach"><div class="box prev"></div><div class="box"><textarea class="notes" placeholder="Notes (auto-saved)…">${escA(st.notes)}</textarea></div></div>`;
+  } else {
+    html+=`<div class="waiting">Pending validation — we'll build this scene together, then it appears here.</div>`;
+  }
+  card.innerHTML=html;shotsEl.appendChild(card);
+
+  card.querySelectorAll('[data-c]').forEach(btn=>btn.onclick=()=>{
+    const k=btn.getAttribute('data-c');copy(k==='line'?beat.line:k==='prompt'?b.prompt:b.perf);});
+  if(b){
+    const sel=card.querySelector('.status');sel.value=st.status;
+    sel.onchange=()=>{setShot(beat.n,{status:sel.value});paint();};
+    const ta=card.querySelector('.notes');ta.oninput=()=>setShot(beat.n,{notes:ta.value});
+    const prev=card.querySelector('.prev'),rin=card.querySelector('.resIn');
+    rin.onchange=e=>{const f=e.target.files[0];if(!f)return;const url=URL.createObjectURL(f);
+      prev.innerHTML=(f.type.startsWith('video')?`<video src="${url}" controls></video>`:`<img src="${url}">`)
+        +`<div style="margin-top:6px"><a class="act" href="${url}" download="${escA(f.name)}">Download</a> `
+        +`<span style="color:var(--muted);font-size:.82rem">${escA(f.name)}</span></div>`;
+      if(st.status==='todo'){sel.value='work';setShot(beat.n,{status:'work'});paint();}toast('Result attached');};
+  }
+  const a=document.createElement('a');a.href='#shot'+beat.n;a.textContent=beat.n;a.id='nav'+beat.n;navEl.appendChild(a);
+});
+
+function setShot(n,p){state.shots[n]=Object.assign({status:'todo',notes:''},state.shots[n],p);save(state);}
+function paint(){
+  const built=BEATS.filter(x=>BUILT[x.n]).length,total=BEATS.length;
+  document.getElementById('barFill').style.width=(total?built/total*100:0)+'%';
+  document.getElementById('barTxt').textContent=built+' / '+total+' scenes built';
+  document.getElementById('chipCount').innerHTML='Scenes: <b>'+total+'</b>';
+  BEATS.forEach(x=>{const a=document.getElementById('nav'+x.n);const stt=(state.shots[x.n]||{}).status;
+    a.className=stt==='done'?'done':(BUILT[x.n]?'built':'');});
+}
+paint();
+</script>
+</body>
+</html>

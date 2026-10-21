@@ -1,0 +1,54 @@
+{
+  "$comment": "Wizdi — jetons de marque (wizdi-brand-kit). Même source que wizdi-tokens.css. Utilisable dans tailwind.config (theme.extend.colors) ou Figma (variables).",
+  "font": {
+    "stack": "\"Baloo Latin\", \"Fredoka\", ui-rounded, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+    "hebrew": { "family": "Fredoka", "file": "fonts/fredoka-var-hebrew.woff2", "weights": "300-700 (variable)", "unicodeRange": "U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F" },
+    "latin": { "family": "Baloo Latin", "file": "fonts/baloo-chettan-regular.ttf", "weights": "400-700", "unicodeRange": "U+0020-007F, U+00A0-00FF, U+0100-017F, U+0180-024F, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F" },
+    "rule": "« Baloo Latin » en tête de pile, « Fredoka » juste derrière — jamais l'inverse. Aucune autre police pour l'hébreu."
+  },
+  "color": {
+    "ink": "#2A2550", "ink2": "#4A4573", "muted": "#726F98",
+    "page": "#FBFAFF", "page2": "#F4F2FF", "line": "rgba(120,104,220,0.13)",
+    "aurora": { "lavender": "#D9CFFD", "sky": "#C6E2FF", "mint": "#C9F1E4", "peach": "#FFE1CB", "pink": "#FFD5E4" },
+    "wizBlue": "#23A4D8",
+    "accent": "#7B6CF6", "accentHi": "#8A7BFF",
+    "success": "#1A9E5C",
+    "gradient": {
+      "brand": "linear-gradient(135deg, #8F7DFF 0%, #6FB9FF 56%, #62DCC3 100%)",
+      "cta": "linear-gradient(135deg, #FF8A3D 0%, #FF5F7E 100%)"
+    },
+    "modules": {
+      "WizPlay":  { "main": "#FF5FA2", "dark": "#E8467C", "pastel": "#FCD7E3", "name": "rose",      "poster": "references/campaign/WizPlay.jpg" },
+      "WizPlan":  { "main": "#F28C28", "dark": "#D9701A", "pastel": "#FFE3C8", "name": "orange",    "poster": "references/campaign/WizPlan.jpg" },
+      "WizChat":  { "main": "#7B5CF0", "dark": "#6246D6", "pastel": "#E8DCFA", "name": "violet",    "poster": "references/campaign/WizChat.jpg" },
+      "WizBook":  { "main": "#15A19E", "dark": "#0F8684", "pastel": "#CFEEEA", "name": "turquoise", "poster": "references/campaign/WizBook.jpg" },
+      "WizBox":   { "main": "#C9742E", "dark": "#A85C1F", "pastel": "#F8DCCF", "name": "bronze",    "poster": "references/campaign/WizBox.jpg" },
+      "WizSpace": { "main": "#C13BC9", "dark": "#A02FA7", "pastel": "#FDF0CF", "name": "magenta, fond doré", "poster": "references/campaign/WizSpace.jpg" },
+      "WizGen":   { "main": "#3ED98A", "dark": "#1FB86E", "pastel": "#D6F5E6", "name": "vert" },
+      "WizMap":   { "main": "#38C6FF", "dark": "#1FA8E0", "pastel": "#D9F1FF", "name": "bleu ciel" },
+      "WizLab":   { "main": "#F06ABC", "dark": "#D44FA3", "pastel": "#FBDDEF", "name": "fuchsia (bientôt)" },
+      "WizBuddy": { "main": "#1E1B4B", "onDark": "#FFFFFF", "plate": ["#1D3F8F", "#12235A"], "plateRim": "#5FD6FF", "name": "bot du centre de formation (pas un module)" }
+    },
+    "glass": { "bg": "rgba(255,255,255,0.58)", "bgStrong": "rgba(255,255,255,0.80)", "edge": "rgba(123,108,246,0.14)", "blur": "18px" }
+  },
+  "radius": { "card": "24px", "panel": "32px", "pill": "999px" },
+  "motion": {
+    "easeOut": "cubic-bezier(0.23, 1, 0.32, 1)",
+    "easeInOut": "cubic-bezier(0.45, 0, 0.55, 1)",
+    "ui": "220ms max 300ms, ease-out, scale(0.985) à l'appui, jamais scale(0), prefers-reduced-motion respecté",
+    "wordmark": {
+      "trigger": "à l'entrée dans l'écran (IntersectionObserver, seuil 35 %), une seule fois",
+      "delay": "1.1 s (pour ne pas jouer en même temps que le logo d'en-tête)",
+      "draw": { "duration": "2.4 s", "ease": "power2.inOut", "strokeWidth": 3 },
+      "fill": { "duration": "1 s", "ease": "power2.out", "offset": "-0.5 s" },
+      "strokeFade": { "duration": "0.7 s", "ease": "power2.out", "offset": "-0.6 s" },
+      "headerLogo": { "delay": "0", "draw": "1.6 s power2.inOut, strokeWidth 1.6", "fill": "0.7 s power2.out, offset -0.3 s", "strokeFade": "0.45 s power2.out, offset -0.45 s" },
+      "reducedMotion": "aucune animation : wordmark plein immédiatement"
+    }
+  },
+  "copy": {
+    "brand": "Wizdi — toujours en lettres latines, jamais וויזדי ; préfixes hébreux détachés : ב-Wizdi, ל-Wizdi, מ-Wizdi ; jamais en majuscules",
+    "copyright": "Copyright © 2026 Wizdi. All rights reserved",
+    "modules": ["WizPlay", "WizPlan", "WizChat", "WizBook", "WizBox", "WizSpace", "WizGen", "WizMap", "WizLab"]
+  }
+}

@@ -1,0 +1,62 @@
+/* Style « POP CINÉTIQUE » Wizdi (grammaire validée des films du 13/10/2026), décliné dans la couleur du module :
+   aplats saturés + trame de points, typographie GÉANTE, vrais écrans en stickers (liseré blanc + ombre franche),
+   bulles, hibou 3D à liseré blanc. Polices : uniquement "Baloo Latin", "Fredoka". Toutes les tailles se posent en JS
+   (pop.js) selon le format : rien ici ne suppose 1080x1920. */
+#stage { background: var(--mod); color: var(--navy); font-family: "Baloo Latin", "Fredoka", sans-serif; }
+.bgw { position: absolute; inset: 0; will-change: clip-path; }
+.bgw .ht { position: absolute; inset: 0;
+  background-image: radial-gradient(circle, var(--dot) 0 3.6px, transparent 4.2px), radial-gradient(circle, var(--dot) 0 3.6px, transparent 4.2px);
+  background-size: 30px 30px; background-position: 0 0, 15px 15px;
+  -webkit-mask-image: linear-gradient(var(--ang), #000 0%, rgba(0, 0, 0, .55) 22%, transparent 52%);
+          mask-image: linear-gradient(var(--ang), #000 0%, rgba(0, 0, 0, .55) 22%, transparent 52%); }
+.rays { position: absolute; left: 50%; top: 50%; width: 2600px; height: 2600px; margin: -1300px 0 0 -1300px; border-radius: 50%;
+  -webkit-mask-image: radial-gradient(closest-side, #000 18%, transparent 72%); mask-image: radial-gradient(closest-side, #000 18%, transparent 72%); }
+
+/* stickers décoratifs (+ ★ ○ ×) */
+.mst { position: absolute; left: 0; top: 0; will-change: transform; pointer-events: none; }
+.mst svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mst text { font-family: "Baloo Latin", "Fredoka", sans-serif; font-weight: 700; }
+
+/* typographie géante (mots verbatim, posés au mot) */
+.kl { position: absolute; left: 0; top: 0; display: flex; justify-content: center; direction: rtl; white-space: nowrap; pointer-events: none; }
+.kl .ksh { display: flex; justify-content: center; align-items: center; }
+.kw2 { position: relative; display: inline-block; font-family: "Baloo Latin", "Fredoka", sans-serif; font-weight: 700; line-height: 1.12;
+  margin: 0 .2em; letter-spacing: -.01em; will-change: transform, opacity; }
+.kw2.hp { margin: 0 .3em; }
+.kw2 .pl { position: absolute; left: -.16em; right: -.16em; top: .04em; bottom: -.02em; border-radius: .14em; transform-origin: 100% 50%; }
+.kw2 .km { position: relative; display: inline-block; overflow: hidden; padding: .16em .1em .2em; margin: -.16em -.1em -.2em; vertical-align: top; }
+.kw2 .kt { display: inline-block; will-change: transform; }
+.kw2 .brand .bw { color: #23A4D8; } .kw2 .brand .bm { color: var(--mod); }
+.kw2 .brandBox { background: #fff; border-radius: .16em; padding: 0 .14em; }
+
+/* vrais écrans en stickers */
+.pnl { position: absolute; left: 0; top: 0; will-change: transform; }
+.pnl .pop { position: absolute; inset: 0; will-change: transform, opacity; }
+.pnl .fr { position: absolute; inset: 0; border-radius: 16px; overflow: hidden; background: #fff; }
+.ink { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; overflow: visible; }
+.ink path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.piece { will-change: transform, opacity; }
+.piece .pf { position: absolute; inset: 0; border-radius: 14px; background-color: #fff; background-repeat: no-repeat; }
+
+/* bulles (vraies images) */
+.bub { position: absolute; left: 0; top: 0; will-change: transform; }
+.bub .pop { position: absolute; inset: 0; will-change: transform, opacity; }
+.bub .bf { position: absolute; inset: 0; overflow: hidden; background: #fff; }
+
+/* hibou 3D : liseré blanc découpé + ombre franche */
+.owl2 { position: absolute; will-change: transform, opacity; pointer-events: none;
+  filter: drop-shadow(5px 0 0 #fff) drop-shadow(-5px 0 0 #fff) drop-shadow(0 5px 0 #fff) drop-shadow(0 -5px 0 #fff) drop-shadow(16px 16px 0 var(--osh, #1E1B4B)); }
+
+/* plaques */
+.bug2 { border-radius: 999px; background: #fff; }
+.logoplate { position: absolute; border-radius: 40px; background: #fff; }
+.burst2 { position: absolute; left: 0; top: 0; pointer-events: none; }
+.burst2 svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pnum { position: absolute; left: 0; top: 0; text-align: center; direction: ltr; font-family: "Baloo Latin", "Fredoka", sans-serif; font-weight: 700; line-height: 1; }
+.tile2 { position: absolute; left: 0; top: 0; border-radius: 30px; direction: rtl; white-space: nowrap; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+/* carte de fin */
+.slog { position: absolute; left: 0; top: 0; border-radius: 70px; }
+.sig2 { position: absolute; left: 0; top: 0; text-align: center; direction: ltr; }
+.url2 { font-family: "Baloo Latin", "Fredoka", sans-serif; font-weight: 700; letter-spacing: .5px; line-height: 1; }
+.copy2 { font-family: "Baloo Latin", "Fredoka", sans-serif; font-weight: 500; line-height: 1; }

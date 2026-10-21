@@ -1,0 +1,103 @@
+/* Wizdi — jetons et recettes « verre liquide » pastel (07/10/2026)
+   Extrait portable de src/components/learn2/learn2-glass.css : à poser dans n'importe quel projet
+   React/Tailwind. Les polices : hébreu en Fredoka, latin en Baloo (fichiers dans fonts/). */
+
+@font-face { font-family: "Fredoka"; src: url(../fonts/fredoka-var-hebrew.woff2) format("woff2"); font-weight: 300 700; font-display: swap; unicode-range: U+0590-05FF; }
+@font-face { font-family: "Baloo Latin"; src: url(../fonts/baloo-chettan-regular.ttf) format("truetype"); font-display: swap; unicode-range: U+0000-00FF, U+2000-206F; }
+
+:root {
+  /* encre */
+  --ink: #2a2550;
+  --ink-2: #4a4573;
+  --muted: #726f98;
+  /* toile + aurore */
+  --page: #f4f2ff;
+  --aurora-1: #d9cffd; --aurora-2: #c6e2ff; --aurora-3: #c9f1e4; --aurora-4: #ffe1cb; --aurora-5: #ffd5e4;
+  /* accent */
+  --accent: #7b6cf6;
+  --accent-hi: #8a7bff;
+  --brand: linear-gradient(135deg, #8f7dff 0%, #6fb9ff 56%, #62dcc3 100%);
+  --wiz-blue: #23a4d8;
+  /* verre */
+  --glass: rgba(255, 255, 255, 0.56);
+  --glass-strong: rgba(255, 255, 255, 0.74);
+  --glass-edge: rgba(123, 108, 246, 0.14);
+  --glass-blur: 18px;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 14px 40px -24px rgba(72, 56, 150, 0.35);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 28px 60px -28px rgba(72, 56, 150, 0.45);
+  --shadow-btn: 0 10px 24px -10px rgba(123, 108, 246, 0.65), 0 1px 0 rgba(255, 255, 255, 0.55) inset;
+  --r-card: 22px;
+  --r-panel: 30px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* pastels des six modules — cartes produits et en-têtes produits seulement */
+  --pastel-plan: #ffe3c8; --pastel-book: #cfeeea; --pastel-space: #fdf0cf;
+  --pastel-box: #f8dccf; --pastel-chat: #e8dcfa; --pastel-play: #fcd7e3; --pastel-platform: #d9deff;
+  /* couleurs officielles des wordmarks (le « Wiz » reste bleu) */
+  --plan: #f08a24; --book: #15a19e; --space: #f0c36b; --box: #b0400f; --chat: #8b46c8; --play: #d6336c;
+  --font: "Baloo Latin", "Fredoka", "Rubik", "Heebo", system-ui, sans-serif;
+}
+
+html, body { background: var(--page); color: var(--ink); font-family: var(--font); font-size: 16.5px; line-height: 1.55; }
+h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.005em; line-height: 1.15; text-wrap: balance; }
+
+/* fond d'aurore (version CSS statique ; la version animée = SmoothUI aurora-curtain) */
+.aurora { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 20% 10%, var(--aurora-1) 0%, transparent 60%),
+    radial-gradient(50% 45% at 85% 20%, var(--aurora-2) 0%, transparent 60%),
+    radial-gradient(55% 50% at 60% 90%, var(--aurora-3) 0%, transparent 60%),
+    radial-gradient(45% 40% at 10% 85%, var(--aurora-4) 0%, transparent 60%),
+    var(--page); }
+
+/* la surface en verre */
+.glass { position: relative; overflow: hidden; border-radius: var(--r-card);
+  background: var(--glass); border: 1px solid var(--glass-edge); box-shadow: var(--shadow-card);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.5); backdrop-filter: blur(var(--glass-blur)) saturate(1.5);
+  transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), background-color 260ms var(--ease-out); }
+.glass::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.08) 42%, rgba(255, 255, 255, 0) 100%); }
+.glass > * { position: relative; }
+.glass--panel { border-radius: var(--r-panel); }
+@media (hover: hover) and (pointer: fine) {
+  a.glass:hover, .glass--link:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); background: var(--glass-strong); border-color: rgba(255, 255, 255, 0.9); }
+}
+a.glass:active, .glass--link:active { transform: translateY(-1px) scale(0.99); }
+
+/* boutons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px;
+  border-radius: 999px; border: 1px solid transparent; font: inherit; font-weight: 600; font-size: 15px; cursor: pointer; white-space: nowrap;
+  position: relative; isolation: isolate; transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out), background-color 160ms var(--ease-out); }
+.btn:active { transform: scale(0.97); }
+.btn-liquid { background: var(--brand); color: #fff; box-shadow: var(--shadow-btn); text-shadow: 0 1px 0 rgba(30, 20, 80, 0.15); }
+.btn-liquid::after { content: ""; position: absolute; inset: 1px 1px 50% 1px; border-radius: 999px 999px 40% 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0)); pointer-events: none; }
+.btn-glass { background: var(--glass); color: var(--ink); border-color: var(--glass-edge); box-shadow: var(--shadow-card);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.5); backdrop-filter: blur(var(--glass-blur)) saturate(1.5); }
+.btn-ghost { background: transparent; color: var(--accent); border-color: var(--glass-edge); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-liquid:hover { filter: saturate(1.1) brightness(1.04); transform: translateY(-1px); }
+  .btn-glass:hover, .btn-ghost:hover { background: var(--glass-strong); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+}
+
+/* puce / pilule */
+.chip { display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 16px; border-radius: 999px;
+  background: var(--glass); border: 1px solid var(--glass-edge); color: var(--ink-2); font-weight: 500; font-size: 15px;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.5); backdrop-filter: blur(var(--glass-blur)) saturate(1.5); }
+.chip--on { background: var(--brand); color: #fff; border-color: transparent; box-shadow: var(--shadow-btn); }
+
+/* tuiles d'icônes pastel */
+.tile { width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 8px 18px -12px rgba(72, 56, 150, 0.45); }
+.tile--violet { background: linear-gradient(135deg, #ece7ff, #d8cfff); color: #6a5be8; }
+.tile--cyan { background: linear-gradient(135deg, #e3f2ff, #c9e4ff); color: #2d8bd3; }
+.tile--teal { background: linear-gradient(135deg, #dff6f0, #c6efe3); color: #1b9a85; }
+.tile--orange { background: linear-gradient(135deg, #ffefdf, #ffdfc2); color: #c56a16; }
+
+/* apparition au défilement : poser data-reveal, ajouter .pre aux éléments sous le pli, .in quand ils entrent */
+[data-reveal] { transition: opacity 520ms var(--ease-out), transform 640ms var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms); }
+[data-reveal].pre { opacity: 0; transform: translateY(18px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .glass, .btn, .chip, [data-reveal] { transition: none; }
+  a.glass:hover, .glass--link:hover, .btn-liquid:hover, .btn-glass:hover { transform: none; }
+}

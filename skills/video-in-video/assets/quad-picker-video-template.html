@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>__TITLE__</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#14101c;font-family:system-ui,Segoe UI,sans-serif;color:#eee}
+  #wrap{position:fixed;inset:0}
+  canvas#cv{display:block;cursor:crosshair}
+  #panel{position:fixed;top:12px;left:12px;background:rgba(20,14,34,.92);border:1px solid #6E3DA6;border-radius:12px;padding:14px 16px;max-width:340px;box-shadow:0 8px 30px rgba(0,0,0,.5);z-index:10}
+  #panel h1{font-size:15px;margin:0 0 8px;color:#c9a7f0}
+  #panel p{font-size:12.5px;line-height:1.5;margin:6px 0;color:#bbb}
+  #panel b{color:#fff}
+  #coords{font-family:Consolas,monospace;font-size:12px;background:#0d0a14;border:1px solid #3a2a55;border-radius:8px;padding:8px;white-space:pre;margin:8px 0;user-select:all;color:#9fe3a8}
+  button{background:#8B46C8;color:#fff;border:0;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;margin:2px 4px 2px 0}
+  button:hover{background:#a35fe0}
+  button.sec{background:#3a2a55}
+  #copied{color:#9fe3a8;font-size:12px;margin-right:8px;opacity:0;transition:opacity .3s}
+  #loupe{position:fixed;right:12px;top:12px;border:2px solid #8B46C8;border-radius:12px;background:#000;z-index:10;display:none}
+  #timeline{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(20,14,34,.92);border:1px solid #6E3DA6;border-radius:12px;padding:10px 16px;z-index:10;width:min(720px,84vw)}
+  #timeline input[type=range]{flex:1;accent-color:#8B46C8}
+  #tcur{font-family:Consolas,monospace;font-size:12px;color:#c9a7f0;min-width:86px;text-align:center}
+  #play{min-width:44px}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="cv"></canvas></div>
+
+<div id="panel">
+  <h1>🎯 Délimite l'écran dans la VIDÉO</h1>
+  <p><b>Glisse les 4 points</b> exactement sur les coins de la <b>dalle</b> (la zone qui s'allume, pas le cadre).<br>
+  🔍 <b>Molette</b> = zoom · <b>glisser le fond</b> = déplacer<br>
+  ⌨️ Clique un point puis <b>flèches</b> = ±1 px (Maj = ±5 px)<br>
+  🎞️ <b>Fais défiler la vidéo</b> (barre en bas) pour vérifier que le cadre reste bien sur l'écran du début à la fin.</p>
+  <div id="coords"></div>
+  <span id="copied">✓ copié !</span>
+  <button id="copy">📋 Copier les coordonnées</button>
+  <button id="reset" class="sec">Réinitialiser</button>
+  <p style="font-size:11.5px;color:#888">Quand c'est bon : copie et colle-moi le bloc dans le chat. (Sauvegarde auto dans le navigateur.)</p>
+</div>
+
+<canvas id="loupe" width="220" height="220"></canvas>
+
+<div id="timeline">
+  <button id="play">▶</button>
+  <input id="seek" type="range" min="0" max="1000" value="0">
+  <span id="tcur">0.00 s</span>
+</div>
+
+<video id="vid" src="__VIDEOSRC__" muted playsinline style="display:none"></video>
+
+<script>
+let IMG_W = 0, IMG_H = 0;
+const STORE_KEY = "__KEY__";
+const ORDER = ["tl","tr","br","bl"];
+const LABELS = { tl:"1 · haut-gauche", tr:"2 · haut-droite", br:"3 · bas-droite", bl:"4 · bas-gauche" };
+const COLORS = { tl:"#ff5d8f", tr:"#ffd166", br:"#06d6a0", bl:"#4cc9f0" };
+
+let pts = null;
+function defaults(){
+  return { tl:[IMG_W*.35,IMG_H*.3], tr:[IMG_W*.65,IMG_H*.3], br:[IMG_W*.65,IMG_H*.7], bl:[IMG_W*.35,IMG_H*.7] };
+}
+function loadPts(){
+  try{ const s = JSON.parse(localStorage.getItem(STORE_KEY));
+    if(s && ORDER.every(k=>Array.isArray(s[k]))) return s; }catch(e){}
+  return defaults();
+}
+function savePts(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(pts)); }catch(e){} }
+
+const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+const loupe = document.getElementById("loupe"), lctx = loupe.getContext("2d");
+const vid = document.getElementById("vid");
+const seek = document.getElementById("seek"), tcur = document.getElementById("tcur");
+const playBtn = document.getElementById("play");
+
+let scale = 1, ox = 0, oy = 0;
+let drag = null, sel = null, mouse = [0,0];
+
+vid.addEventListener("loadedmetadata", ()=>{
+  IMG_W = vid.videoWidth; IMG_H = vid.videoHeight;
+  pts = loadPts();
+  resize();
+  vid.currentTime = 0.01; // force le décodage de la 1re frame
+});
+vid.addEventListener("seeked", draw);
+vid.addEventListener("timeupdate", ()=>{
+  seek.value = Math.round(vid.currentTime / vid.duration * 1000);
+  tcur.textContent = vid.currentTime.toFixed(2) + " s";
+});
+
+function rafLoop(){
+  if(!vid.paused){ draw(); requestAnimationFrame(rafLoop); }
+}
+playBtn.onclick = ()=>{
+  if(vid.paused){ vid.play(); playBtn.textContent = "⏸"; rafLoop(); }
+  else { vid.pause(); playBtn.textContent = "▶"; draw(); }
+};
+seek.oninput = ()=>{
+  vid.pause(); playBtn.textContent = "▶";
+  vid.currentTime = seek.value/1000 * vid.duration;
+};
+
+function resize(){
+  cv.width = innerWidth; cv.height = innerHeight;
+  fit(); draw();
+}
+function fit(){
+  if(!IMG_W) return;
+  scale = Math.min(cv.width/IMG_W, cv.height/IMG_H)*0.9;
+  ox = (cv.width - IMG_W*scale)/2; oy = (cv.height - IMG_H*scale)/2 - 14;
+}
+function toScreen(p){ return [ox + p[0]*scale, oy + p[1]*scale]; }
+function toImg(x,y){ return [(x-ox)/scale, (y-oy)/scale]; }
+
+function draw(){
+  if(!pts) return;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.imageSmoothingEnabled = scale < 3;
+  ctx.drawImage(vid, ox, oy, IMG_W*scale, IMG_H*scale);
+
+  const s = ORDER.map(k=>toScreen(pts[k]));
+  ctx.beginPath(); ctx.moveTo(...s[0]); for(let i=1;i<4;i++) ctx.lineTo(...s[i]); ctx.closePath();
+  ctx.fillStyle = "rgba(139,70,200,.22)"; ctx.fill();
+  ctx.strokeStyle = "#c084fc"; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(...s[0]); ctx.lineTo(...s[2]); ctx.moveTo(...s[1]); ctx.lineTo(...s[3]);
+  ctx.strokeStyle = "rgba(192,132,252,.4)"; ctx.lineWidth = 1; ctx.stroke();
+
+  for(const k of ORDER){
+    const [x,y] = toScreen(pts[k]);
+    ctx.beginPath(); ctx.arc(x,y,9,0,7); ctx.fillStyle = "rgba(0,0,0,.55)"; ctx.fill();
+    ctx.beginPath(); ctx.arc(x,y,7,0,7); ctx.strokeStyle = COLORS[k]; ctx.lineWidth = sel===k?3.5:2; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x-11,y); ctx.lineTo(x+11,y); ctx.moveTo(x,y-11); ctx.lineTo(x,y+11);
+    ctx.strokeStyle = COLORS[k]; ctx.lineWidth = 1; ctx.stroke();
+    ctx.font = "600 12px system-ui"; ctx.fillStyle = COLORS[k];
+    ctx.fillText(LABELS[k].slice(0,1), x+12, y-10);
+  }
+  updatePanel();
+}
+
+function updatePanel(){
+  const fmt = k => `"${k}": [${Math.round(pts[k][0]*10)/10}, ${Math.round(pts[k][1]*10)/10}]`;
+  document.getElementById("coords").textContent =
+    "{\n  " + ORDER.map(fmt).join(",\n  ") + "\n}";
+}
+
+function nearCorner(x,y){
+  for(const k of ORDER){
+    const [sx,sy] = toScreen(pts[k]);
+    if(Math.hypot(sx-x, sy-y) < 14) return k;
+  }
+  return null;
+}
+
+cv.addEventListener("pointerdown", e=>{
+  if(!pts) return;
+  cv.setPointerCapture(e.pointerId);
+  const k = nearCorner(e.clientX, e.clientY);
+  if(k){ drag = k; sel = k; } else drag = "pan";
+  mouse = [e.clientX, e.clientY];
+  draw();
+});
+cv.addEventListener("pointermove", e=>{
+  if(!pts) return;
+  const dx = e.clientX-mouse[0], dy = e.clientY-mouse[1];
+  mouse = [e.clientX, e.clientY];
+  if(drag === "pan"){ ox += dx; oy += dy; draw(); }
+  else if(drag){
+    const p = toImg(e.clientX, e.clientY);
+    pts[drag] = [Math.min(IMG_W,Math.max(0,p[0])), Math.min(IMG_H,Math.max(0,p[1]))];
+    savePts(); draw(); drawLoupe(drag);
+  }
+});
+cv.addEventListener("pointerup", ()=>{ drag = null; loupe.style.display = "none"; });
+cv.addEventListener("wheel", e=>{
+  e.preventDefault();
+  const f = e.deltaY < 0 ? 1.15 : 1/1.15;
+  const [ix,iy] = toImg(e.clientX, e.clientY);
+  scale = Math.min(40, Math.max(0.2, scale*f));
+  ox = e.clientX - ix*scale; oy = e.clientY - iy*scale;
+  draw();
+},{passive:false});
+
+addEventListener("keydown", e=>{
+  if(!sel || !pts) return;
+  const step = e.shiftKey ? 5 : 1;
+  const map = {ArrowLeft:[-step,0],ArrowRight:[step,0],ArrowUp:[0,-step],ArrowDown:[0,step]};
+  if(map[e.key]){
+    e.preventDefault();
+    pts[sel][0] = Math.min(IMG_W,Math.max(0,pts[sel][0]+map[e.key][0]));
+    pts[sel][1] = Math.min(IMG_H,Math.max(0,pts[sel][1]+map[e.key][1]));
+    savePts(); draw(); drawLoupe(sel);
+  }
+});
+
+function drawLoupe(k){
+  loupe.style.display = "block";
+  const Z = 8, R = loupe.width/(2*Z);
+  const [px,py] = pts[k];
+  lctx.imageSmoothingEnabled = false;
+  lctx.fillStyle = "#000"; lctx.fillRect(0,0,loupe.width,loupe.height);
+  lctx.drawImage(vid, px-R, py-R, 2*R, 2*R, 0, 0, loupe.width, loupe.height);
+  lctx.strokeStyle = COLORS[k]; lctx.lineWidth = 1.5;
+  lctx.beginPath();
+  lctx.moveTo(loupe.width/2,0); lctx.lineTo(loupe.width/2,loupe.height);
+  lctx.moveTo(0,loupe.height/2); lctx.lineTo(loupe.width,loupe.height/2);
+  lctx.stroke();
+  lctx.font = "600 13px system-ui"; lctx.fillStyle = COLORS[k];
+  lctx.fillText(`${LABELS[k]} — ${Math.round(px)}, ${Math.round(py)}`, 8, loupe.height-10);
+}
+
+document.getElementById("copy").onclick = async ()=>{
+  const txt = document.getElementById("coords").textContent;
+  try{ await navigator.clipboard.writeText(txt); }
+  catch(e){
+    const r = document.createRange(); r.selectNodeContents(document.getElementById("coords"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand("copy");
+  }
+  const c = document.getElementById("copied");
+  c.style.opacity = 1; setTimeout(()=>c.style.opacity=0, 1600);
+};
+document.getElementById("reset").onclick = ()=>{
+  pts = defaults(); savePts(); draw();
+};
+
+addEventListener("resize", resize);
+</script>
+</body>
+</html>

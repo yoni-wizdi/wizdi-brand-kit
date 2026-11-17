@@ -29,11 +29,11 @@
   --r-card: 22px;
   --r-panel: 30px;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  /* pastels des six modules — cartes produits et en-têtes produits seulement */
-  --pastel-plan: #ffe3c8; --pastel-book: #cfeeea; --pastel-space: #fdf0cf;
-  --pastel-box: #f8dccf; --pastel-chat: #e8dcfa; --pastel-play: #fcd7e3; --pastel-platform: #d9deff;
-  /* couleurs officielles des wordmarks (le « Wiz » reste bleu) */
-  --plan: #f08a24; --book: #15a19e; --space: #f0c36b; --box: #b0400f; --chat: #8b46c8; --play: #d6336c;
+  /* pâles des six modules (palette « פלטת צבעי מוצרי Wiz » du 28/10/2026, tokens/palette/) — cartes et en-têtes produits */
+  --pastel-plan: #e8dcf2; --pastel-book: #d6e0f2; --pastel-space: #f4eed1;
+  --pastel-box: #dbe7d5; --pastel-chat: #fce5d1; --pastel-play: #f9dcea; --pastel-platform: #d9deff;
+  /* couleurs des suffixes des wordmarks sur blanc (le « Wiz » reste bleu ; WizSpace en or foncé) */
+  --plan: #7d3ab7; --book: #1c50b5; --space: #977e00; --box: #367c14; --chat: #ef6c00; --play: #df3c8c;
   --font: "Baloo Latin", "Fredoka", "Rubik", "Heebo", system-ui, sans-serif;
 }
 

@@ -49,24 +49,27 @@ Mise à jour : section 2 de `PROMPT.md`. Travail au quotidien : sections 3 à 6.
 | `WIZDI-PRODUCTION.md` | **les règles de production** : Wizi et WizBuddy, images générées, vidéo (formats, écriture, contrôle), voix off, textes et rôles, pages, interface WizPlan, directions déjà refusées |
 | `brand-sheet.html` | la planche de marque en une page : logos animés dans leur couleur (WizBuddy compris), palette, polices, composants, à faire / à ne pas faire |
 | `PROMPT.md` | les prompts prêts à coller : installer, mettre à jour, auditer un projet, nouvelle page, image avec Wizi, film motion |
-| `tokens/` | `wizdi-tokens.css` + `.json` (marque : couleurs des modules et de WizBuddy, boutons, chips, carte de verre, `@font-face`) ; `wizdi-glass-tokens.css` (style « verre liquide » pastel du hub) |
+| `tokens/` | `palette/` : **la palette officielle des Wiz du 28/10/2026** (`tokens.css`, `tokens.json`, `tailwind-theme.css`, `wiz-palette-migrate.mjs` qui remplace les anciennes couleurs dans un projet, `MIGRATION.he.md`) ; `wizdi-tokens.css` + `.json` (marque : couleurs des modules et de WizBuddy, boutons, chips, carte de verre, `@font-face`) ; `wizdi-palette.js` ; `wizdi-glass-tokens.css` (style « verre liquide » du hub) |
 | `fonts/` | `fredoka-var-hebrew.woff2` (hébreu, variable 300–700), `baloo-chettan-regular.ttf` (latin) |
 | `logos/` | `wizdi-wordmark.svg`, `wizdi-owl.png` (hibou plat, logo seulement), `wizdi-owl-3d.webp`, `yavne-bonus.png`, `wiz/*.svg` (les wordmarks bicolores des 9 modules + `WizBuddy.svg` et `WizBuddy-on-dark.svg`), `favicons/` |
 | `components/` | `WizWord.tsx` (React + GSAP, celui du site), `wiz-word.js` (sans dépendance, `data-wiz-word="WizPlay"`), tracés SVG de tous les noms |
 | `references/wizi/` | **les personnages** : Wizi seul (RÉFÉRENCE 1 des prompts) et la planche de ses poses ; Wizi de chaque module au vrai logo + poses détourées ; WizBuddy (référence, plaque, avatar, poses détourées) ; anciens WizGen / WizMap / WizLab — détail dans `references/wizi/README.md` |
-| `references/campaign/` | les 6 posters officiels, un par module : la référence de style, de couleur et de plastron |
-| `references/pastel/` | les 12 scènes « pastel aérien » validées (vraies personnes + Wizi avec le plastron du module) |
+| `references/popbg/` | les fonds « monde » PopBG de chaque module, calme et normal (images fixes ; les boucles vidéo, les logos animés et les clips des hiboux sont sur le kit général en ligne https://studio-wizdi.com/kit/) |
+| `references/personnes/` | les 3 enseignantes validées (GPT Image 2, 03/11), à proposer en premier pour toute scène avec une enseignante |
+| `references/legacy/` | archives aux **anciennes couleurs** (posters CAMPAIGN, scènes pastel, anciens WizGen/WizMap/WizLab) : jamais dans une nouvelle création |
 | `skills/` | les 38 skills de design et de production (dont le pack complet d'Emil Kowalski, `wizdi-brand`, `wizdi-production` et `wizdi-motion-senior`), à copier dans `~/.claude/skills/` — détail dans `skills/README.md` |
 | `scripts/` | la mise à jour depuis le dépôt du site (Yoni seulement) et le traçage des wordmarks depuis Baloo |
 
 ## Mettre le kit à jour (Yoni)
 
-Les logos, polices, composants, posters, scènes pastel et la plupart des skills viennent du dépôt
-WIZDI-PRICE (studio-wizdi.com) et du compte claude.ai de Yoni :
+Les logos, polices, composants, la palette et la plupart des skills viennent du dépôt WIZDI-PRICE
+(studio-wizdi.com, lu à `origin/main` après un fetch, jamais sur la branche ouverte) et du compte claude.ai de Yoni.
+La palette vient du catalogue du kit général (`ops/kit-wizdi-2026-10-29/kit.py`) : si elle change, les logos et la
+planche suivent, et le script signale tout écart de `tokens/wizdi-tokens.json`.
 
 ```bash
 pip install pillow fonttools uharfbuzz
-python scripts/sync-from-wizdi-price.py --source ~/Desktop/project-partner
+python scripts/sync-from-wizdi-price.py --source ~/Desktop/project-partner   # --ref <branche> pour une autre révision
 ```
 
 Puis `git diff`, commit et push. Se modifient à la main ici : les textes (`WIZDI-BRAND.md`,

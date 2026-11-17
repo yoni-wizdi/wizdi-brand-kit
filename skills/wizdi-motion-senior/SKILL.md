@@ -59,13 +59,13 @@ contrôlés), jamais des maquettes muettes. Tu parles la langue de la personne (
   une découpe ne s'agrandit jamais (≤ 1x). Une illustration de landing n'est pas une capture : ne la fais pas passer pour l'outil.
 - **Hibou : uniquement Wizi, le hibou 3D** — idéalement le Wizi du module (combinaison spatiale + plastron du module,
   séquences animées du projet `build/owl/<module>-<pose>/` s'il y en a, sinon les poses détourées du kit
-  `assets/owls/<module>-<wave|point|joy>.webp` via `owlImgs` dans film.js ; WizBuddy : `assets/owls/wizbuddy-<pose>.webp`),
+  `assets/owls/<module>[-<pose>].webp` (palette du 28/10, liste dans `references/wizi/README.md` du kit) via `owlImgs` dans film.js ; WizBuddy : `assets/owls/wizbuddy-<pose>.webp`),
   en dernier recours le hibou 3D du kit (`assets/owl-3d.webp`) ; le
   hibou plat ne sert que dans le logo Wizdi (signature de fin). Nouvelles poses : méthode `wizdi-visual-studio`, validées
   par Yoni. Aucun texte hébreu dans une image générée ; aucune génération sans accord.
 - **RTL** : lecture de droite à gauche — titres, ordre d'apparition (le premier élément à droite), flèches, volets ;
   chiffres et latin isolés en `ltr`.
-- **Fin** : logo officiel du module + **`wizdi.school`** (jamais studio-wizdi.com) + **`Copyright © 2026 Wizdi. All rights reserved`**.
+- **Fin** : logo officiel du module + **`www.wizdi.school`** (jamais studio-wizdi.com) + **`Copyright © 2026 Wizdi. All rights reserved`**.
 - **Aucune provenance interne à l'écran** (« שאלה 1 », jamais « מההקלטה של אייל »), aucun nom de l'équipe ; noms visibles
   dans les captures retirés par recadrage.
 - Personne filmée : son visage n'est jamais caché pendant qu'elle parle ; tout moment sans image (noir) est couvert.
@@ -89,7 +89,7 @@ contrôlés), jamais des maquettes muettes. Tu parles la langue de la personne (
   chiffre dit en géant sur une étoile.
 - **Logo** : à l'ouverture il se trace (contour puis remplissage) au mot qui le dit, puis file dans une **plaque fixe en
   haut** qui pulse à chaque scène ; **carte de fin** : volets en cascade, logo géant, slogan en pastille mot à mot, hibou
-  joyeux, confettis, signature Wizdi, wizdi.school, copyright.
+  joyeux, confettis, signature Wizdi, www.wizdi.school, copyright.
 - **Structure** : accroche humaine comprise en 0,5 s (jamais un tableur, jamais un document de travail) ; le contexte annoncé
   se voit dès la 1re seconde ; le réel n'est qu'un aperçu en quelques plans, le corps du film c'est l'outil en motion ;
   montrer le chemin complet (question → réponse → clic → la bonne page). Reel de 5 s : 0–1,5 s accroche (coupe sacrée à

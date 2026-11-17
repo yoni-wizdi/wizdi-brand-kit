@@ -96,7 +96,7 @@ exigeant et juste. Tu classes les <N> versions ; Yoni tranche.
   la voix doit être intégralement intelligible ; stems (build/stem-*.wav : niveaux, présence, voix vs musique dans 1–4 kHz) ;
   les coupes tombent-elles sur les temps (BPM annoncé dans NOTE.md, instants des changements de plan) ?
 - les règles une par une — texte à l'écran MOT À MOT (python tools/render.py textscan dans le dossier du senior + œil) ;
-  Wizdi et noms d'outils en latin ; aucun écran hors des vrais médias ; règle d'Eyal ; fin = logo officiel + wizdi.school +
+  Wizdi et noms d'outils en latin ; aucun écran hors des vrais médias ; règle d'Eyal ; fin = logo officiel + www.wizdi.school +
   Copyright © 2026 Wizdi. All rights reserved ; visage jamais caché pendant qu'on parle ; aucun noir non couvert ; RTL.
 
 ## Barème (sur 10 chacun, total sur 60)

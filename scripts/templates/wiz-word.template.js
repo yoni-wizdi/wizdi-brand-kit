@@ -6,7 +6,7 @@
 
    Usage :
      <script src="wiz-word.js"></script>
-     <span data-wiz-word="WizPlay" data-accent="#FF5FA2" style="font-size:48px"></span>
+     <span data-wiz-word="WizPlay" data-accent="#DF3C8C" style="font-size:48px"></span>
      <span data-wiz-word="Wizdi" style="font-size:40px"></span>
      <script>WizWord.init();</script>                 // ou WizWord.init(root)
 

@@ -1,24 +1,38 @@
 # Wizi, WizBuddy et les Wiz : les références de personnages
 
-> **בעברית** — כאן כל הדמויות: Wizi לבד (REFERENCE 1 בפרומפטים), Wizi של כל מודול עם לוחית החזה
-> האמיתית, WizBuddy, והגרסאות הישנות. לכל תמונה חדשה: REFERENCE 1 = הדמות לבד, REFERENCE 2 = הלוחית של המודול.
+> **בעברית** — כאן כל הדמויות, בצבעים של פלטת מוצרי Wiz החדשה (28/10): Wizi לבד (REFERENCE 1 בפרומפטים),
+> Wizi של כל מודול בחליפה בצבע המודול עם לוחית החזה האמיתית, ו-WizBuddy. לכל תמונה חדשה: REFERENCE 1 =
+> הדמות לבד, REFERENCE 2 = Wizi של המודול. הינשופים בצבעים הישנים נמצאים רק ב-`../legacy/`.
 
 | Fichier | Quoi | Usage |
 |---|---|---|
 | `wizi-reference.webp` | Wizi seul, combinaison bleue, plastron « WIZDI » | **RÉFÉRENCE 1** de tout prompt d'image avec Wizi |
 | `wizi-poses.webp` | la planche de toutes ses poses (face, marche, salut, ordinateur, réflexion, rotation), fond transparent | choisir une pose, garder les proportions |
-| `modules/<module>.webp` | Wizi de chaque module dans son armure, **plastron au vrai logo** (Wiz bleu + suffixe en couleur, Baloo) : `wizplay`, `wizplan`, `wizchat`, `wizbook`, `wizbox`, `wizspace` | **RÉFÉRENCE 2** pour le plastron et la couleur de l'armure du module |
-| `modules/poses/<module>-<wave\|point\|joy>.webp` | les mêmes, détourés (fond transparent), trois poses : salut, désigne, joie — sauf WizPlan | incrustation directe dans une page, une vignette ou un film |
-| `wizbuddy/wizbuddy-reference.webp` | WizBuddy, le bot du centre de formation : combinaison blanche nacrée, casque à écouteurs blancs, petites ailes irisées, plaque bleu nuit au liseré cyan | RÉFÉRENCE 1 de tout visuel WizBuddy |
-| `wizbuddy/wizbuddy-plate.webp` | la plaque « WizBuddy » seule (Wiz bleu, Buddy blanc) | RÉFÉRENCE 2 pour la plaque |
-| `wizbuddy/wizbuddy-avatar.webp`, `wizbuddy-sheet.webp` | l'avatar du centre et la planche des trois variantes (la C est retenue) | style et proportions |
-| `wizbuddy/poses/wizbuddy-<wave\|point\|joy>.webp` | WizBuddy détouré, trois poses | incrustation directe |
-| `legacy/` | anciens visuels de WizGen, WizMap et WizLab, avec des plaques LED en majuscules (« WIZGEN ») : **pas au vrai logo** | ambiance seulement ; ne jamais les publier tels quels, régénérer avec le vrai logo |
+| `modules/<module>.webp` | Wizi de chaque module dans l'armure **recolorée à la nouvelle palette**, plastron au vrai logo : `wizbook` (bleu roi), `wizplan` (violet), `wizplay` (rose), `wizspace` (or), `wizchat` (orange), `wizbox` (vert) | **RÉFÉRENCE 2** pour le plastron et la couleur de l'armure |
+| `modules/poses/*.webp` | les poses approuvées du kit général, détourées (fond transparent) | incrustation directe dans une page, une vignette ou un film |
+| `wizbuddy/` | WizBuddy, le bot du centre de formation (combinaison blanche nacrée) : référence, plaque, avatar, planche, 3 poses détourées | RÉF 1 = `wizbuddy-reference.webp`, RÉF 2 = `wizbuddy-plate.webp` |
 
-Les posters officiels par module sont dans `../campaign/`, les scènes « pastel aérien » dans `../pastel/`.
+## Les poses de `modules/poses/` (liste du kit général, `kit.py`)
 
-Rappels (détail dans `WIZDI-PRODUCTION.md` §1–2) : toujours le hibou 3D, jamais le hibou plat ; le
-plastron se lit et se vérifie lettre à lettre ; WizBuddy toujours mignon, jamais d'yeux lumineux,
-casque toujours là, toujours en pied.
+| Fichier | Module | Pose |
+|---|---|---|
+| `wizbook.webp` · `wizbook-wave.webp` · `wizbook-point.webp` | WizBook | salue (clip du film) · salue · désigne |
+| `wizplan.webp` · `wizplan-joie.webp` | WizPlan | déploie un éventail de cartes et désigne · tourne de joie en l'air |
+| `wizplay.webp` · `wizplay-joy.webp` · `wizplay-point.webp` | WizPlay | saute sur ses jambes à ressort · joie · désigne |
+| `wizchat.webp` · `wizchat-wave.webp` | WizChat | explique comme un professeur particulier · salue |
+| `wizspace.webp` · `wizspace-joy.webp` | WizSpace | fait tourner un anneau de tuiles · joie |
+| `wizbox-joy.webp` · `wizbox-point.webp` | WizBox | joie · désigne |
 
-Ce dossier se met à jour à la main (il n'est pas régénéré par `scripts/sync-from-wizdi-price.py`).
+**Écartées pour toujours** (yeux qui brillent, regard blasé) : `wizchat-point`, `wizspace-wave`, `wizbook-joy` ;
+et le clip `owl-wizbox` (lueur olive après recoloriage). Ne pas les réintroduire.
+
+Les animations de ces hiboux (clips à fond transparent, rafales), les fonds PopBG animés, les logos animés et les
+personnages du film השבחה sont sur le kit général en ligne : **https://studio-wizdi.com/kit/** (trop lourds pour ce dépôt).
+Les fonds PopBG en image fixe sont dans `../popbg/`.
+
+Rappels (détail dans `WIZDI-PRODUCTION.md`) : toujours le hibou 3D, jamais le hibou plat ; jamais un hibou aux
+anciennes couleurs dans une nouvelle création ; le plastron se lit et se vérifie lettre à lettre ; WizBuddy toujours
+mignon, jamais d'yeux lumineux, casque toujours là, toujours en pied.
+
+Ce dossier se met à jour à la main (il n'est pas régénéré par `scripts/sync-from-wizdi-price.py`) : les poses viennent
+de `media/clips/owl-*/owl-*.png` du kit général (`ops/kit-wizdi-2026-10-29/`).

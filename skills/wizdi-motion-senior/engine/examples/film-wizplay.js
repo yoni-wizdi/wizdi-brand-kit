@@ -5,7 +5,7 @@
    Les noms de médias ci-dessous sont ceux du projet d'origine : remplace-les par les tiens. */
 window.WIZ_FILM = {
   slug: "wizplay", logo: "wizplay", owl: "wizplay",
-  color: (((window.WIZ_BRAND || {}).modules || {}).wizplay || {}).main || "#FF5FA2",
+  color: (((window.WIZ_BRAND || {}).modules || {}).wizplay || {}).main || "#DF3C8C",
   voAt: 0.6, endHold: 3.1, bpm: 116,
   scenes: {
     /* « WizPlay – מתמטיקה שכיף ללמוד! » : le logo se trace au mot, la phrase en géant, le hibou salue */
@@ -27,7 +27,7 @@ window.WIZ_FILM = {
     s6: { emph: [1, 4], portal: { name: "play-hero", at: 0, until: 2, fy: 600 },
       media: [{ name: "play-dash", at: 2, marks: [{ r: [128, 92, 122, 62], at: 2, piece: true }] }],
       owl: { pose: "point", at: 3, from: "right" } },
-    /* « מתמטיקה שתלמידים אוהבים! » : le slogan de l'affiche, logo géant, hibou joyeux, wizdi.school, copyright */
+    /* « מתמטיקה שתלמידים אוהבים! » : le slogan de l'affiche, logo géant, hibou joyeux, www.wizdi.school, copyright */
     s7: { kind: "end", emph: [2] },
   },
 };

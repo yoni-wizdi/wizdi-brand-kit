@@ -55,12 +55,14 @@
   th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
   th{color:var(--muted);font-weight:600;font-size:13px}
   td code{direction:ltr;display:inline-block;font:13px ui-monospace,monospace;background:rgba(255,255,255,.7);padding:1px 6px;border-radius:6px}
-  .posters{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-  .posters img{width:100%;border-radius:14px;box-shadow:var(--shadow-card)}
+  .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .world{margin:0;aspect-ratio:16/9;border-radius:16px;background:center/cover no-repeat;box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .world img{height:88%;width:auto;filter:drop-shadow(0 10px 18px rgba(30,27,75,.35))}
+  .cards img.owl{object-fit:contain;background:var(--mc-p);padding:10px;box-sizing:border-box}
   .owls{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
   .owls figure{margin:0;text-align:center;font-size:13px;color:var(--ink-2)}
   .owls img{height:140px;width:auto;display:block;margin:0 auto 6px}
-  @media (max-width:900px){.wiz-grid,.cards{grid-template-columns:1fr 1fr}.spec,.dd{grid-template-columns:1fr}.posters{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:900px){.wiz-grid,.cards{grid-template-columns:1fr 1fr}.spec,.dd{grid-template-columns:1fr}.posters{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:560px){.wiz-grid,.cards{grid-template-columns:1fr}table{display:block;overflow-x:auto}}
 </style>
 </head>
@@ -68,7 +70,7 @@
 <div class="sheet">
   <header class="top">
     <div class="lockup"><img src="logos/wizdi-owl.png" alt=""><span data-wiz-word="Wizdi" data-fast="1" aria-label="Wizdi"></span></div>
-    <div style="text-align:left;color:var(--muted);font-size:13.5px">לוח המותג · 08/10/2026 · מקור: studio-wizdi.com</div>
+    <div style="text-align:left;color:var(--muted);font-size:13.5px">לוח המותג · 17/11/2026 · פלטת צבעי מוצרי Wiz מ-28/10 · מקור: studio-wizdi.com</div>
   </header>
 
   <section>
@@ -77,7 +79,7 @@
     <p class="lede">המילה Wizdi תמיד באותיות לטיניות, בכחול <code dir="ltr">#23A4D8</code>, מתוך תווי Baloo. לעולם לא וויזדי, לעולם לא באותיות גדולות.</p>
     <div class="owls">
       <figure><img src="logos/wizdi-owl.png" alt="">הינשוף השטוח — רק בלוגו</figure>
-      <figure><img src="logos/wizdi-owl-3d.webp" alt="">Wizi התלת-ממדי — בכל ויזואל</figure>
+      <figure><img src="references/wizi/modules/wizplan.webp" alt="">Wizi התלת-ממדי — בחליפה בצבע המודול</figure>
       <figure><img src="logos/wizdi-wordmark.svg" alt="" style="height:70px">wordmark · <code dir="ltr">logos/wizdi-wordmark.svg</code></figure>
     </div>
   </section>
@@ -120,8 +122,8 @@
     <div class="comp">
       <button class="btn-wizdi btn-wizdi--cta">קבעו הדגמה חינם</button>
       <button class="btn-wizdi btn-wizdi--brand">לכל המוצרים</button>
-      <button class="btn-wizdi btn-wizdi--module" style="--mc:#FF5FA2;--mc-d:#E8467C">גלו את WizPlay</button>
-      <button class="btn-wizdi btn-wizdi--module" style="--mc:#15A19E;--mc-d:#0F8684">גלו את WizBook</button>
+      <button class="btn-wizdi btn-wizdi--module" style="--mc:var(--play);--mc-d:var(--play-d)">גלו את WizPlay</button>
+      <button class="btn-wizdi btn-wizdi--module" style="--mc:var(--book);--mc-d:var(--book-d)">גלו את WizBook</button>
       <button class="btn-wizdi btn-wizdi--glass">נסו את WizChat עכשיו</button>
       <span class="badge-wizdi badge-wizdi--live">קיים ועובד</span>
       <span class="badge-wizdi badge-wizdi--launch">🚀 ההשקה</span>
@@ -130,19 +132,17 @@
       <span class="chip-wizdi">עברית + ערבית</span>
     </div>
     <div class="cards">
-      <div class="glass-wizdi" style="--mc:#15A19E"><img src="references/pastel/wizbook-b.webp" alt=""><span data-wiz-word="WizBook" data-accent="#15A19E" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">הספר החי שמשנה את הלמידה</p></div>
-      <div class="glass-wizdi" style="--mc:#7B5CF0"><img src="references/pastel/wizchat-b.webp" alt=""><span data-wiz-word="WizChat" data-accent="#7B5CF0" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">סוכן למידה ושיח אישי</p></div>
-      <div class="glass-wizdi" style="--mc:#F28C28"><img src="references/pastel/wizplan-b.webp" alt=""><span data-wiz-word="WizPlan" data-accent="#F28C28" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">מערך שיעור שלם. מוכן להקרנה בקליק.</p></div>
+      <div class="glass-wizdi" style="--mc-p:var(--book-p)"><img class="owl" src="references/wizi/modules/wizbook.webp" alt=""><span data-wiz-word="WizBook" data-accent="#1C50B5" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">הספר החי שמשנה את הלמידה</p></div>
+      <div class="glass-wizdi" style="--mc-p:var(--chat-p)"><img class="owl" src="references/wizi/modules/wizchat.webp" alt=""><span data-wiz-word="WizChat" data-accent="#EF6C00" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">סוכן למידה ושיח אישי</p></div>
+      <div class="glass-wizdi" style="--mc-p:var(--plan-p)"><img class="owl" src="references/wizi/modules/wizplan.webp" alt=""><span data-wiz-word="WizPlan" data-accent="#7D3AB7" style="font-size:28px"></span><p style="margin:0;color:var(--ink-2);font-size:14.5px">מערך שיעור שלם. מוכן להקרנה בקליק.</p></div>
     </div>
   </section>
 
   <section>
     <span class="kicker">הפניות</span>
-    <h2>הפוסטרים הרשמיים: הסגנון והצבע של כל מודול</h2>
-    <div class="posters">
-      <img src="references/campaign/WizPlay.jpg" alt="WizPlay"><img src="references/campaign/WizPlan.jpg" alt="WizPlan"><img src="references/campaign/WizChat.jpg" alt="WizChat">
-      <img src="references/campaign/WizBook.jpg" alt="WizBook"><img src="references/campaign/WizBox.jpg" alt="WizBox"><img src="references/campaign/WizSpace.jpg" alt="WizSpace">
-    </div>
+    <h2>עולמות הפופ: הרקע והינשוף של כל מודול, בצבעים החדשים</h2>
+    <p class="lede">רקע PopBG של המודול (<code dir="ltr">references/popbg/</code>) והינשוף התלת-ממדי בצבע שלו (<code dir="ltr">references/wizi/modules/</code>). הפוסטרים הישנים בצבעים הקודמים נמצאים ב-<code dir="ltr">references/legacy/</code> בלבד.</p>
+    <div class="posters" id="worlds"></div>
   </section>
 
   <section>
@@ -179,18 +179,27 @@
   </section>
 </div>
 
+<script src="tokens/wizdi-palette.js"></script>
 <script src="components/wiz-word.js"></script>
 <script>
-  var MODULES = [
-    ["WizPlay","#FF5FA2","#E8467C","#FCD7E3","ורוד"],["WizPlan","#F28C28","#D9701A","#FFE3C8","כתום"],["WizChat","#7B5CF0","#6246D6","#E8DCFA","סגול"],
-    ["WizBook","#15A19E","#0F8684","#CFEEEA","טורקיז"],["WizBox","#C9742E","#A85C1F","#F8DCCF","ברונזה"],["WizSpace","#C13BC9","#A02FA7","#FDF0CF","מג'נטה · רקע זהוב"],
-    ["WizGen","#3ED98A","#1FB86E","#D6F5E6","ירוק"],["WizMap","#38C6FF","#1FA8E0","#D9F1FF","תכלת"],["WizLab","#F06ABC","#D44FA3","#FBDDEF","פוקסיה · בקרוב"],
-    ["WizBuddy","#1E1B4B","#1D3F8F","#5FD6FF","הבוט של מרכז ההדרכה · Buddy לבן על הלוחית"]
-  ];
+  /* les couleurs viennent de tokens/wizdi-palette.js, généré depuis la palette officielle (« פלטת צבעי מוצרי Wiz ») */
+  var PM = (window.WIZ_PALETTE || {}).modules || {};
+  var MODULES = Object.keys(PM).map(function(n){
+    var p = PM[n];
+    return [n, p.main, p.dark, p.pastel, (p.he || '') + (p.inPalette ? '' : 'מחוץ לפלטה החדשה'), p.wordmark];
+  });
+  MODULES.push(["WizBuddy","#1E1B4B","#1D3F8F","#5FD6FF","הבוט של מרכז ההדרכה · Buddy לבן על הלוחית","#1E1B4B"]);
+  var worlds = document.getElementById('worlds');
+  ["wizplan","wizbook","wizplay","wizspace","wizchat","wizbox"].forEach(function(k){
+    var f = document.createElement('figure'); f.className = 'world';
+    f.style.backgroundImage = 'url(references/popbg/' + k + '-normal.jpg)';
+    f.innerHTML = '<img src="references/wizi/modules/' + k + '.webp" alt="">';
+    worlds.appendChild(f);
+  });
   var grid = document.getElementById('wizGrid');
   MODULES.forEach(function(m){
     var t = document.createElement('div'); t.className = 'wiz-tile'; t.style.setProperty('--mc', m[1]); t.style.setProperty('--mc-p', m[3]);
-    t.innerHTML = '<span data-wiz-word="' + m[0] + '" data-accent="' + m[1] + '"></span>' +
+    t.innerHTML = '<span data-wiz-word="' + m[0] + '" data-accent="' + m[5] + '"></span>' +
       '<div class="sw"><span><i style="background:' + m[1] + '"></i>' + m[1] + '</span><span><i style="background:' + m[2] + '"></i>' + m[2] + '</span><span><i style="background:' + m[3] + '"></i>' + m[3] + '</span></div>' +
       '<div class="row"><span class="nm">' + m[4] + '</span><button class="replay" type="button">לנגן שוב</button></div>';
     grid.appendChild(t);

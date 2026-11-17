@@ -14,7 +14,8 @@
 ## 2. הלוגו
 
 - הלוגו = הינשוף השטוח + המילה **Wizdi** בכחול `#23A4D8` (קובץ: `logos/wizdi-wordmark.svg`, `logos/wizdi-owl.png`).
-- **הינשוף השטוח משמש רק בלוגו.** בכל ויזואל אחר (הירו, כרטיסים, פוסטרים, תמונות שנוצרו ב-AI) מופיע **Wizi — הינשוף התלת-ממדי** בחליפת החלל, עם לוחית החזה של המודול (הדמות לבד וכל התנוחות: `references/wizi/`; לוחית החזה של כל מודול: `references/campaign/`).
+- **הינשוף השטוח משמש רק בלוגו.** בכל ויזואל אחר (הירו, כרטיסים, פוסטרים, תמונות שנוצרו ב-AI) מופיע **Wizi — הינשוף התלת-ממדי** בחליפת החלל **בצבע המודול** (הפלטה החדשה), עם לוחית החזה של המודול (הדמות לבד וכל התנוחות: `references/wizi/`; Wizi של כל מודול: `references/wizi/modules/`).
+- **שם הינשוף בכל טקסט ציבורי: «Wizdi»** (בועה, alt, קריינות, סרטון: «היי! אני Wizdi.»). «Wizi» הוא שם פנימי בלבד (שמות קבצים).
 - רווח בטיחות: לפחות גובה האות W מסביב. גובה מינימלי: 24px למילה Wizdi.
 - על רקע כהה המילה נשארת כחולה (`#23A4D8`), לא לבנה.
 - `מבית יבנה בונוס`: הלוגו של יבנה (`logos/yavne-bonus.png`) מופיע רק בפוטר, ליד המילה «מבית».
@@ -25,19 +26,23 @@
 - אם אין SVG: גיבוי טקסט דו-צבעי ב-Baloo (`<b>Wiz</b><i>Play</i>`), `direction:ltr`.
 - הגודל נקבע לפי `font-size` של ההורה (גובה 1em).
 
-| מודול | צבע | כהה (כפתורים) | פסטל (רקעים) |
-|---|---|---|---|
-| WizPlay | `#FF5FA2` ורוד | `#E8467C` | `#FCD7E3` |
-| WizPlan | `#F28C28` כתום | `#D9701A` | `#FFE3C8` |
-| WizChat | `#7B5CF0` סגול | `#6246D6` | `#E8DCFA` |
-| WizBook | `#15A19E` טורקיז | `#0F8684` | `#CFEEEA` |
-| WizBox | `#C9742E` ברונזה | `#A85C1F` | `#F8DCCF` |
-| WizSpace | `#C13BC9` מג'נטה (רקע זהוב) | `#A02FA7` | `#FDF0CF` |
-| WizGen | `#3ED98A` ירוק | `#1FB86E` | `#D6F5E6` |
-| WizMap | `#38C6FF` תכלת | `#1FA8E0` | `#D9F1FF` |
-| WizLab | `#F06ABC` פוקסיה (בקרוב) | `#D44FA3` | `#FBDDEF` |
+**פלטת צבעי מוצרי Wiz** (28/10/2026, מחליפה את כל הצבעים הקודמים; מקור: `tokens/palette/`, הקיט הכללי studio-wizdi.com/kit/):
 
-- הפוסטר של כל מודול (`references/campaign/`) הוא **ההפניה לסגנון ולצבע** של כל ויזואל של המודול.
+| מודול | צבע | צבע הסיומת בלוגו | כהה (כפתורים) | חיוור (רקעים) |
+|---|---|---|---|---|
+| WizBook | `#1C50B5` כחול רויאל | `#1C50B5` | `#163E8D` | `#D6E0F2` |
+| WizPlan | `#7D3AB7` סגול | `#7D3AB7` | `#622D8F` | `#E8DCF2` |
+| WizSpace | `#C2A200` זהב | `#977E00` | `#977E00` | `#F4EED1` |
+| WizBox | `#367C14` ירוק | `#367C14` | `#2A6110` | `#DBE7D5` |
+| WizChat | `#EF6C00` כתום | `#EF6C00` | `#BA5400` | `#FCE5D1` |
+| WizPlay | `#DF3C8C` ורוד | `#DF3C8C` | `#AE2F6D` | `#F9DCEA` |
+| WizMap | `#BE2323` אדום | `#BE2323` | `#941B1B` | `#F3D7D7` |
+
+- «Wiz» נשאר תמיד בכחול `#23A4D8`. ניגודיות מתחת ל-4.5:1 ל-Wiz, Space, Chat, Play: ללוגואים ולגרפיקה בלבד, לא לטקסט רץ.
+- מחוץ לפלטה החדשה (ליוני להחליט): WizGen `#3ED98A`, WizLab `#F06ABC` — הצבעים הישנים נשמרו.
+- לכל מודול «עולם» צבעוני (רקע PopBG, `references/popbg/`, גרדיאנט `--<module>-bg` ב-`tokens/palette/tokens.css`).
+- **הצבעים הקודמים** (WizPlay `#FF5FA2`/`#D6336C`, WizPlan כתום, WizChat סגול, WizBook טורקיז, WizBox נחושת…) **לא משמשים יותר**. הסקריפט `tokens/palette/wiz-palette-migrate.mjs` מוצא ומחליף אותם בפרויקט (הסבר: `tokens/palette/MIGRATION.he.md`).
+- ההפניה לסגנון ולצבע: הקיט הכללי, דפי הנחיתה בסגנון הפופ והינשופים בצבעים החדשים (`references/wizi/modules/`). הפוסטרים של CAMPAIGN בצבעים הישנים — ארכיון בלבד (`references/legacy/`).
 
 ## 4. צבעים כלליים
 
@@ -70,12 +75,12 @@
 
 ## 7. תמונות
 
-- בכל ויזואל: **Wizi התלת-ממדי** עם לוחית החזה של המודול, בסגנון הפוסטרים ב-`references/campaign/`; דמויות אמיתיות (תלמידים, מורים) בסגנון ישראלי-ים-תיכוני, סצנה אחת לכל עמוד, בלי כפילויות.
+- בכל ויזואל: **Wizi התלת-ממדי** בחליפה בצבע המודול (הפלטה החדשה) עם לוחית החזה של המודול (`references/wizi/modules/`), בעולם ה-PopBG של המודול (`references/popbg/`); דמויות אמיתיות (תלמידים, מורים) בסגנון ישראלי-ים-תיכוני, סצנה אחת לכל עמוד, בלי כפילויות.
 - **אין טקסט עברי בתמונה שנוצרה ב-AI** (אי אפשר לאמת אות-אות). הטקסט נכתב ב-HTML מעל התמונה.
 - **אין צילומי מסך מזויפים** של הממשק. אין צילום אמיתי? ויזואל ניטרלי + הערה.
 - מייצרים מחדש, לא מרטשים: שלוש וריאציות עם הלוגואים כהפניה עדיפות על עריכה ידנית.
-- פרומפטים לתמונות: לפי ה-skill `wizdi-visual-studio` (בלוקים ART DIRECTION / SCENE / WIZI / HOLOGRAMS / TEXT / NEGATIVE, REFERENCE 1 = Wizi `references/wizi/wizi-reference.webp`, REFERENCE 2 = הפוסטר של המודול).
-- וידאו: ה-URL בסוף הוא תמיד `wizdi.school`, אף פעם לא studio-wizdi.com. לפני וידאו: לאשר את תמונת הבסיס עם יוני.
+- פרומפטים לתמונות: לפי ה-skill `wizdi-visual-studio` (בלוקים ART DIRECTION / SCENE / WIZI / HOLOGRAMS / TEXT / NEGATIVE, REFERENCE 1 = Wizi `references/wizi/wizi-reference.webp`, REFERENCE 2 = Wizi של המודול `references/wizi/modules/<module>.webp`).
+- וידאו: הכתובת שעל המסך היא תמיד **«www.wizdi.school»** (עם www), אף פעם לא studio-wizdi.com; קוד QR יכול להוביל לדף אחר. לפני וידאו: לאשר את תמונות הבסיס עם יוני.
 
 ## 8. פריסה ו-RTL
 
@@ -98,6 +103,7 @@
 
 ## 11. אסור / נדחה
 
+- **הצבעים הישנים** של ה-Wiz וינשופים בשריון הישן, בכל יצירה חדשה. קשת או קוביות השבחה מחוץ להשבחה. «Wizi» או «WizPlan 3» בטקסט ציבורי.
 - רקע חשוך «קוסמי» עם כוכבים בדפי עבודה (מרכז ההדרכה): נדחה.
 - תפריטים נפתחים ורשימות עם נקודות קטנות במקום כרטיסים: נדחה.
 - רשת של עשרות תמונות ממוזערות: נדחה («לא יודעים איפה הראש»).
@@ -129,7 +135,8 @@
 ## 2. Le logo
 
 - Le logo = le hibou plat + le mot **Wizdi** en bleu `#23A4D8` (`logos/wizdi-wordmark.svg`, `logos/wizdi-owl.png`). Le tracé SVG du mot est généré depuis la police Baloo (`components/wizdiWordmarkPath.ts`).
-- **Le hibou plat ne sert que dans le logo.** Partout ailleurs (hero, cartes, posters, images générées) c'est **Wizi, le hibou 3D** en combinaison spatiale, avec le plastron du module (le personnage seul et toutes ses poses : `references/wizi/` ; le plastron de chaque module : `references/campaign/`).
+- **Le hibou plat ne sert que dans le logo.** Partout ailleurs (hero, cartes, posters, images générées) c'est **Wizi, le hibou 3D** en combinaison spatiale, dans l'armure **à la couleur du module** (nouvelle palette), avec le plastron du module (le personnage seul et toutes ses poses : `references/wizi/` ; Wizi de chaque module : `references/wizi/modules/`).
+- **Dans tout texte public, le hibou s'appelle « Wizdi »** (bulle, alt, aria-label, voix, film : « היי! אני Wizdi. »). « Wizi » n'est qu'un nom interne (noms de fichiers).
 - Zone de protection : la hauteur du W tout autour. Taille minimale du mot : 24 px.
 - Sur fond sombre le mot reste bleu, pas blanc.
 - « מבית יבנה בונוס » : le logo Yavne n'apparaît qu'en pied de page, à côté du mot « מבית ».
@@ -139,8 +146,23 @@
 - Construction : **« Wiz » en bleu `#23A4D8` + le suffixe dans la couleur du module**, en Baloo, à partir des vrais tracés SVG (`logos/wiz/*.svg`, données dans `components/wizWordPaths.json` et `wizWordPaths.ts`). Jamais en texte brut stylé, jamais une autre police, jamais en majuscules, jamais en lettres hébraïques.
 - Repli sans SVG : texte bicolore en Baloo (`<b>Wiz</b><i>Play</i>`), `direction: ltr`, classe `.wiz-text`.
 - La taille suit le `font-size` du parent (hauteur 1 em).
-- Couleurs : voir le tableau hébreu ci-dessus (identique) et `tokens/wizdi-tokens.json` → `color.modules`. Chaque module a sa couleur, sa variante foncée pour les boutons, son pastel pour les fonds.
-- Le poster CAMPAIGN du module (`references/campaign/`) est la référence de style et de couleur de tout visuel du module.
+- Couleurs : **palette « פלטת צבעי מוצרי Wiz » du 28/10/2026**, qui remplace toutes les couleurs précédentes (source : `tokens/palette/`, kit général studio-wizdi.com/kit/) :
+
+| Module | Couleur | Suffixe du logo | Foncé (boutons) | Pâle (fonds) |
+|---|---|---|---|---|
+| WizBook | `#1C50B5` bleu roi | `#1C50B5` | `#163E8D` | `#D6E0F2` |
+| WizPlan | `#7D3AB7` violet | `#7D3AB7` | `#622D8F` | `#E8DCF2` |
+| WizSpace | `#C2A200` or | `#977E00` | `#977E00` | `#F4EED1` |
+| WizBox | `#367C14` vert | `#367C14` | `#2A6110` | `#DBE7D5` |
+| WizChat | `#EF6C00` orange | `#EF6C00` | `#BA5400` | `#FCE5D1` |
+| WizPlay | `#DF3C8C` rose | `#DF3C8C` | `#AE2F6D` | `#F9DCEA` |
+| WizMap | `#BE2323` rouge | `#BE2323` | `#941B1B` | `#F3D7D7` |
+
+- « Wiz » reste toujours en bleu `#23A4D8`. Contraste sous 4,5:1 pour Wiz, Space, Chat et Play : logos et graphismes seulement, jamais en texte courant.
+- Hors de la nouvelle palette (à trancher par Yoni) : WizGen `#3ED98A`, WizLab `#F06ABC`, anciennes valeurs gardées.
+- Chaque module a son « monde » : fond PopBG (`references/popbg/`, dégradé `--<module>-bg` dans `tokens/palette/tokens.css`).
+- **Les anciennes couleurs** (WizPlay `#FF5FA2` / `#D6336C`, WizPlan orange, WizChat violet, WizBook turquoise, WizBox cuivre…) **ne s'emploient plus**. `tokens/palette/wiz-palette-migrate.mjs` les trouve et les remplace dans un projet (mode d'emploi : `tokens/palette/MIGRATION.he.md`).
+- Référence de style et de couleur : le kit général, les landings au style pop et les hiboux recolorés (`references/wizi/modules/`). Les posters CAMPAIGN aux anciennes couleurs ne sont plus qu'une archive (`references/legacy/`).
 
 ## 4. Couleurs générales
 
@@ -168,12 +190,12 @@ Encre `#2A2550` / `#4A4573` / `#726F98` · page `#FBFAFF` ou `#F4F2FF` · aurore
 
 ## 7. Images
 
-- Tout visuel : **Wizi 3D** avec le plastron du module, dans le style des posters `references/campaign/` ; vraies personnes (élèves, enseignants) de type israélien méditerranéen, une scène par page, aucun doublon. Les scènes `references/pastel/` montrent la direction « pastel aérien » validée.
+- Tout visuel : **Wizi 3D** dans l'armure à la couleur du module (nouvelle palette), avec le plastron du module (`references/wizi/modules/`), dans le monde PopBG du module (`references/popbg/`) ; vraies personnes (élèves, enseignants) de type israélien méditerranéen, une scène par page, aucun doublon. Jamais un hibou aux anciennes couleurs dans une nouvelle création.
 - **Aucun texte hébreu dans une image générée** : on ne peut pas le vérifier lettre à lettre. Le texte se pose en HTML par-dessus.
 - **Jamais de fausse capture d'interface.** Pas de vraie capture ? Un visuel neutre et une note.
 - Régénérer plutôt que retoucher : trois variantes générées avec les logos en référence battent toute retouche manuelle.
-- Prompts d'images : méthode du skill `wizdi-visual-studio` (blocs ART DIRECTION / SCENE / WIZI / HOLOGRAMS / TEXT / NEGATIVE ; RÉFÉRENCE 1 = Wizi seul `references/wizi/wizi-reference.webp`, RÉFÉRENCE 2 = le poster du module).
-- Vidéo : l'URL finale est toujours `wizdi.school`, jamais studio-wizdi.com ; la référence visuelle se valide avec Yoni avant toute génération.
+- Prompts d'images : méthode du skill `wizdi-visual-studio` (blocs ART DIRECTION / SCENE / WIZI / HOLOGRAMS / TEXT / NEGATIVE ; RÉFÉRENCE 1 = Wizi seul `references/wizi/wizi-reference.webp`, RÉFÉRENCE 2 = le Wizi du module `references/wizi/modules/<module>.webp`).
+- Vidéo : l'adresse à l'écran est toujours **« www.wizdi.school »** (avec www), jamais studio-wizdi.com ; un QR peut mener ailleurs. Les images de départ se valident avec Yoni avant toute génération vidéo.
 
 ## 8. Mise en page et RTL
 
@@ -196,6 +218,7 @@ Encre `#2A2550` / `#4A4573` / `#726F98` · page `#FBFAFF` ou `#F4F2FF` · aurore
 
 ## 11. Interdit / déjà rejeté
 
+- **Les anciennes couleurs** des Wiz et les hiboux aux anciennes armures dans toute nouvelle création · arc-en-ciel ou cubes השבחה hors השבחה · « Wizi » ou « WizPlan 3 » dans un texte public. Liste complète des refus : `WIZDI-PRODUCTION.md` §13.
 - Fond sombre « cosmique » étoilé sur des pages de travail (centre d'aide) : rejeté.
 - Menus déroulants et listes à petits points à la place de cartes : rejeté.
 - Grille de dizaines de vignettes : rejeté.

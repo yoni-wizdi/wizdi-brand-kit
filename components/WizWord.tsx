@@ -21,19 +21,22 @@ const WIZ_BLUE = "#23A4D8";
 
 export function WizWord({
   name,
-  accent = "#D6336C",
+  accent = "#DF3C8C",
   className = "",
+  animate = true,
 }: {
   name: string;
   accent?: string;
   className?: string;
+  /* false : rempli d'emblée, sans tracé (logo posé sur une plaque qui a déjà sa propre entrée) */
+  animate?: boolean;
 }) {
   const ref = useRef<SVGSVGElement>(null);
   const data = WIZ_WORD_PATHS[name];
 
   useGSAP(() => {
     const svg = ref.current;
-    if (!svg || !data) return;
+    if (!svg || !data || !animate) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const paths = svg.querySelectorAll("path");
 
@@ -56,7 +59,7 @@ export function WizWord({
     );
     io.observe(svg);
     return () => io.disconnect();
-  }, [name]);
+  }, [name, animate]);
 
   // Nom inconnu (securite) : fallback texte simple bicolore.
   if (!data) {

@@ -48,7 +48,7 @@ def main():
     tok = json.load(open(os.path.join(kit, "tokens", "wizdi-tokens.json"), encoding="utf-8"))
     mods = tok.get("color", {}).get("modules", {})
     blue = tok.get("color", {}).get("wizBlue", WIZ_BLUE)
-    logos, brand = {}, {"wizBlue": blue, "url": "wizdi.school", "copyright": tok.get("copy", {}).get("copyright", COPYRIGHT), "modules": {}}
+    logos, brand = {}, {"wizBlue": blue, "url": "www.wizdi.school", "copyright": tok.get("copy", {}).get("copyright", COPYRIGHT), "modules": {}}
     for name, p in paths.items():
         key = name.lower()
         if name == "Wizdi":
@@ -60,7 +60,7 @@ def main():
             print(f"  (couleur absente des tokens pour {name} : ignoré)")
             continue
         logos[key] = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{p["vb"]}" role="img" aria-label="{name}">'
-                      f'<path fill="{blue}" d="{p["wiz"]}"/><path fill="{m["main"]}" d="{p["suffix"]}"/></svg>')
+                      f'<path fill="{blue}" d="{p["wiz"]}"/><path fill="{m.get("wordmark") or m["main"]}" d="{p["suffix"]}"/></svg>')
         brand["modules"][key] = {"name": name, "main": m["main"], "dark": m.get("dark"), "pastel": m.get("pastel")}
     for name, m in mods.items():   # modules sans tracé (ex. WizLab) : couleurs seulement, logo en repli texte
         brand["modules"].setdefault(name.lower(), {"name": name, "main": m["main"], "dark": m.get("dark"), "pastel": m.get("pastel")})

@@ -107,9 +107,9 @@ mes textes mot pour mot ; montre-moi une direction avant de tout construire. »
 - להשתמש ב-skills wizdi-visual-studio ו-wizdi-production (לסרטון עם דמות מדברת: wizdi-avatar-helper).
 - REFERENCE 1 = ~/wizdi-brand-kit/references/wizi/wizi-reference.webp (Wizi לבד).
   לתנוחה אחרת: references/wizi/wizi-poses.webp. ל-WizBuddy: references/wizi/wizbuddy/wizbuddy-reference.webp.
-- REFERENCE 2 = Wizi של המודול עם הלוגו האמיתי: references/wizi/modules/<module>.webp, או הפוסטר
-  ב-references/campaign/ (לוחית החזה וצבע השריון). ל-WizBuddy: wizbuddy/wizbuddy-plate.webp.
-- סגנון «פסטל אוורירי» כמו ב-references/pastel/.
+- REFERENCE 2 = Wizi של המודול בצבעים החדשים: references/wizi/modules/<module>.webp (לוחית החזה וצבע
+  השריון). ל-WizBuddy: wizbuddy/wizbuddy-plate.webp. אף פעם לא ינשוף בצבעים הישנים.
+- הסגנון החדש: עולם ה-PopBG של המודול (references/popbg/) ופלטת הצבעים מ-tokens/palette/.
 - Wizi תלת-ממדי בחליפת חלל, אף פעם לא הינשוף השטוח. בלי טקסט עברי בתמונה, בלי צילומי מסך מזויפים.
 - לכתוב לי את הפרומפטים באנגלית לפי הבלוקים של ה-skill, ולחכות לאישור שלי לפני כל יצירה.
 - סרטון: תמונת הבסיס מאושרת קודם עם יוני; ה-URL בסוף הוא תמיד wizdi.school.
@@ -119,8 +119,8 @@ mes textes mot pour mot ; montre-moi une direction avant de tout construire. »
 [la scène]. Skills `wizdi-visual-studio` et `wizdi-production` (vidéo avec personnage qui parle :
 `wizdi-avatar-helper`). RÉFÉRENCE 1 = Wizi seul (`references/wizi/wizi-reference.webp`, autre pose :
 `wizi-poses.webp` ; WizBuddy : `wizbuddy/wizbuddy-reference.webp`) ; RÉFÉRENCE 2 = le Wizi du module
-au vrai logo (`references/wizi/modules/`) ou son poster (`references/campaign/`) ; WizBuddy : sa
-plaque. Style « pastel aérien » (`references/pastel/`). Wizi 3D
+recoloré à la nouvelle palette (`references/wizi/modules/`) ; WizBuddy : sa plaque. Jamais un hibou aux
+anciennes couleurs. Style : le monde PopBG du module (`references/popbg/`) et la palette (`tokens/palette/`). Wizi 3D
 en combinaison spatiale, jamais le hibou plat ; aucun texte hébreu dans l'image, aucune fausse
 capture. Prompts en anglais selon les blocs du skill, validation avant chaque génération. Vidéo :
 image de base validée avec Yoni d'abord ; l'URL finale est toujours wizdi.school. »

@@ -208,7 +208,7 @@ async def textscan(step, out):
             if not w.get("x"):
                 said_at[s] = min(said_at.get(s, 1e9), info["vo"] + w["t"])
     bad_w -= ok_w
-    ok_lat = {"Wiz", "Wizdi", "wizdi.school", "Copyright", "©", "2026", "Wizdi.", "All", "rights", "reserved"}
+    ok_lat = {"Wiz", "Wizdi", "wizdi.school", "www.wizdi.school", "Copyright", "©", "2026", "Wizdi.", "All", "rights", "reserved"}
     for m in ("Play", "Plan", "Chat", "Book", "Box", "Space", "Gen", "Map", "Lab"):
         ok_lat |= {m, "Wiz" + m}
     for a in info["allow"]:

@@ -50,16 +50,22 @@
   --cta:linear-gradient(135deg,#FF8A3D 0%,#FF5F7E 100%);                 /* bouton principal « קבעו הדגמה » */
   --success:#1A9E5C;    /* coches, états validés */
 
-  /* ── les modules : couleur, variante foncée (boutons), pastel (fonds) ── */
-  --play:#FF5FA2;   --play-d:#E8467C;   --play-p:#FCD7E3;    /* WizPlay  — rose */
-  --plan:#F28C28;   --plan-d:#D9701A;   --plan-p:#FFE3C8;    /* WizPlan  — orange */
-  --chat:#7B5CF0;   --chat-d:#6246D6;   --chat-p:#E8DCFA;    /* WizChat  — violet */
-  --book:#15A19E;   --book-d:#0F8684;   --book-p:#CFEEEA;    /* WizBook  — turquoise */
-  --box:#C9742E;    --box-d:#A85C1F;    --box-p:#F8DCCF;     /* WizBox   — bronze */
-  --space:#C13BC9;  --space-d:#A02FA7;  --space-p:#FDF0CF;   /* WizSpace — magenta, fond doré */
-  --gen:#3ED98A;    --gen-d:#1FB86E;    --gen-p:#D6F5E6;     /* WizGen   — vert */
-  --map:#38C6FF;    --map-d:#1FA8E0;    --map-p:#D9F1FF;     /* WizMap   — bleu ciel */
-  --lab:#F06ABC;    --lab-d:#D44FA3;    --lab-p:#FBDDEF;     /* WizLab   — rose fuchsia (bientôt) */
+  /* ── les modules : nouvelle palette « פלטת צבעי מוצרי Wiz » du 28/10/2026 (source : tokens/palette/, kit
+     général studio-wizdi.com/kit/) — couleur, variante foncée (boutons, texte blanc), pastel (fonds).
+     Le suffixe du logo prend la couleur du module, sauf WizSpace : --space-w. Contraste < 4,5:1 pour Wiz,
+     Space, Chat, Play : logos et graphismes seulement, jamais en texte courant. Les fonds « monde » (PopBG)
+     sont dans tokens/palette/tokens.css (--wizbook-bg…). ── */
+  --play:#DF3C8C;   --play-d:#AE2F6D;   --play-p:#F9DCEA;    /* WizPlay  — rose */
+  --plan:#7D3AB7;   --plan-d:#622D8F;   --plan-p:#E8DCF2;    /* WizPlan  — violet */
+  --chat:#EF6C00;   --chat-d:#BA5400;   --chat-p:#FCE5D1;    /* WizChat  — orange */
+  --book:#1C50B5;   --book-d:#163E8D;   --book-p:#D6E0F2;    /* WizBook  — bleu roi */
+  --box:#367C14;    --box-d:#2A6110;    --box-p:#DBE7D5;     /* WizBox   — vert */
+  --space:#C2A200;  --space-d:#977E00;  --space-p:#F4EED1;   /* WizSpace — or */
+  --space-w:#977E00;                                         /* WizSpace — suffix du logo sur blanc */
+  --map:#BE2323;    --map-d:#941B1B;    --map-p:#F3D7D7;     /* WizMap   — rouge (foncé et pâle dérivés) */
+  /* hors de la nouvelle palette (à trancher par Yoni) : anciennes valeurs gardées */
+  --gen:#3ED98A;    --gen-d:#1FB86E;    --gen-p:#D6F5E6;     /* WizGen   — vert (hors palette) */
+  --lab:#F06ABC;    --lab-d:#D44FA3;    --lab-p:#FBDDEF;     /* WizLab   — fuchsia (hors palette, bientôt) */
   /* WizBuddy — le bot du centre de formation (pas un module) : « Buddy » bleu nuit sur fond clair,
      blanc sur sa plaque ; plaque en dégradé bleu nuit avec liseré cyan (films du centre, 14/10) */
   --buddy:#1E1B4B;  --buddy-plate:#1D3F8F;  --buddy-plate-2:#12235A;  --buddy-rim:#5FD6FF;

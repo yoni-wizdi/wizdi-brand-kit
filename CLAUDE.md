@@ -13,10 +13,12 @@ détaillé). Pour produire une image, une vidéo, une voix, une page ou un texte
 - « Wizdi » toujours en lettres latines, jamais en majuscules, jamais `וויזדי`.
 - Logos des modules : « Wiz » en bleu `#23A4D8` + le suffixe dans la couleur du module, depuis
   `logos/wiz/*.svg` ou `components/` (`WizWord.tsx`, `wiz-word.js`), jamais retapés en texte.
-- Couleurs : uniquement celles de `tokens/` ; rien d'inventé.
+- Couleurs : uniquement la **palette des Wiz du 28/10/2026** (`tokens/palette/`, reprise dans `tokens/wizdi-tokens.css`) ;
+  rien d'inventé, jamais les anciennes couleurs (WizPlay `#FF5FA2`, WizPlan orange, WizChat violet, WizBook turquoise,
+  WizBox cuivre). Pour mettre un projet à jour : `tokens/palette/wiz-palette-migrate.mjs` (`tokens/palette/MIGRATION.he.md`).
 - Hébreu en Fredoka, latin en Baloo (`fonts/`, `tokens/wizdi-tokens.css`).
-- Personnage : **Wizi en 3D, en combinaison spatiale**, avec le plastron du module au vrai logo
-  (`references/wizi/`, `references/campaign/`). Le hibou plat ne sert que dans le logo.
+- Personnage : **Wizi en 3D, en combinaison spatiale à la couleur du module**, avec le plastron du module au vrai logo
+  (`references/wizi/`), dans le monde PopBG du module (`references/popbg/`). Le hibou plat ne sert que dans le logo.
 - WizBuddy, le bot du centre de formation : combinaison blanche nacrée, toujours mignon, jamais d'yeux
   lumineux, casque toujours là (`references/wizi/wizbuddy/`, `logos/wiz/WizBuddy.svg`).
 - Vidéo : toujours 3 formats (9:16, 4:5, 16:9), fin sur wizdi.school ; skill `wizdi-motion-senior`.
@@ -32,13 +34,14 @@ détaillé). Pour produire une image, une vidéo, une voix, une page ou un texte
 | `WIZDI-PRODUCTION.md` | les règles de production : Wizi, WizBuddy, images, vidéo, voix, textes, pages, WizPlan, refus |
 | `brand-sheet.html` | la planche de marque : logos animés, palette, polices, composants |
 | `PROMPT.md` | les prompts prêts à coller (installer, mettre à jour, auditer, créer) |
-| `tokens/` | `wizdi-tokens.css` / `.json` (marque), `wizdi-glass-tokens.css` (style « verre liquide » pastel du hub) |
+| `tokens/` | `palette/` (la palette officielle des Wiz : `tokens.css`, `tokens.json`, thème Tailwind, script de migration des anciennes couleurs), `wizdi-tokens.css` / `.json` (marque + recettes), `wizdi-palette.js` (palette lue par la planche), `wizdi-glass-tokens.css` (style « verre liquide » du hub) |
 | `fonts/` | Fredoka (hébreu), Baloo (latin) |
-| `logos/` | wordmark Wizdi, hibou plat, logos des Wiz en SVG (les 9 modules + WizBuddy), favicons, Yavne |
+| `logos/` | wordmark Wizdi, hibou plat, logos des Wiz en SVG aux couleurs de la palette (les 9 modules + WizBuddy), favicons, Yavne |
 | `components/` | `WizWord.tsx` (React + GSAP), `wiz-word.js` (sans dépendance), tracés SVG |
 | `references/wizi/` | Wizi seul (`wizi-reference.webp`, la RÉFÉRENCE 1 des prompts), la planche de ses poses, Wizi de chaque module au vrai logo (`modules/`, poses détourées dans `modules/poses/`), WizBuddy (`wizbuddy/`), anciens Wiz (`legacy/`) — voir `references/wizi/README.md` |
-| `references/campaign/` | les 6 posters officiels : style, couleur et plastron de chaque module |
-| `references/pastel/` | les 12 scènes « pastel aérien » validées |
+| `references/popbg/` | les fonds « monde » PopBG de chaque module (calme et normal, image fixe ; les boucles vidéo sont sur studio-wizdi.com/kit/) |
+| `references/personnes/` | les 3 enseignantes validées, à proposer en premier pour une scène avec une enseignante |
+| `references/legacy/` | archives aux **anciennes couleurs** (posters CAMPAIGN, scènes pastel, anciens WizGen/WizMap/WizLab) : jamais dans une nouvelle création |
 | `skills/` | les skills Claude Code du design Wizdi (voir `skills/README.md`) |
 | `scripts/` | la synchronisation depuis le dépôt du site (Yoni seulement) |
 
@@ -66,6 +69,6 @@ détaillé). Pour produire une image, une vidéo, une voix, une page ou un texte
 - Ne modifie ni les règles, ni les couleurs, ni les logos, ni les références de ta propre initiative.
   Une proposition de changement passe par Yoni : pull request si la personne a les droits,
   sinon un message qui décrit le changement.
-- `logos/`, `fonts/`, `components/`, `references/campaign/`, `references/pastel/` et la plupart de
+- `logos/`, `fonts/`, `components/`, `tokens/palette/`, `tokens/wizdi-palette.js` et la plupart de
   `skills/` sont régénérés par `scripts/sync-from-wizdi-price.py` : une retouche à la main serait écrasée.
 - Dépôt privé : aucun fichier du kit ne se publie ailleurs.

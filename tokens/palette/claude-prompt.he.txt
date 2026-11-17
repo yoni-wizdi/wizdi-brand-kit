@@ -1,0 +1,8 @@
+עדכן את הפרויקט הזה לפלטת הצבעים החדשה של מוצרי Wiz (28.10.2026). כל החומרים: https://studio-wizdi.com/kit/
+1. הורד לתיקיית הפרויקט את https://studio-wizdi.com/kit/tokens/wiz-palette-migrate.mjs ואת https://studio-wizdi.com/kit/tokens/tokens.json
+2. הרץ node wiz-palette-migrate.mjs (בדיקה בלבד, לא משנה כלום) והצג לי את הרשימה.
+3. בדוק כל מופע בקוד: האם הצבע באמת שייך ל-Wiz שהסקריפט מציע? אם לא, הוסף אותו לחריגים (--skip=#XXXXXX).
+4. אחרי שאאשר, הרץ node wiz-palette-migrate.mjs --write עם החריגים, ובדוק שהבנייה עוברת.
+5. הרץ node wiz-palette-migrate.mjs --near ומצא גוונים שנבנו ביד מהצבעים הישנים (שקיפויות, מעברי צבע). תקן אותם לפי tokens.json.
+6. רשום לי אילו לוגואים, תמונות וסרטונים בפרויקט עדיין בצבעים הישנים. אותם מחליפים בקבצים מהערכה, לא בקוד.
+כללים: «Wiz» נשאר #23A4D8. על רקע לבן כותבים את Space של WizSpace ב-#977E00. WizPlan ו-WizChat החליפו צבעים (כתום ↔ סגול): מחליפים רק לפי הקוד המדויק, אף פעם לא «כל הכתום בסגול». אל תיגע ב-WizGen וב-WizLab. «Wizdi» תמיד באותיות לטיניות.

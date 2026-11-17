@@ -8,7 +8,7 @@
    puis le MORCEAU QUI SORT dans sa vraie forme ; vraies photos dans des BULLES qui ondulent ; HIBOU 3D à liseré blanc qui
    rebondit sur les mots ; stickers décoratifs (+ ★ ○ ×) qui flottent et pulsent sur le tempo ; CONFETTIS et éclats aux
    sommets ; plaque du logo fixe en haut qui pulse à chaque scène ; carte de fin (logo, slogan en pastille, hibou joyeux,
-   signature Wizdi, wizdi.school, copyright).
+   signature Wizdi, www.wizdi.school, copyright).
 
    Deux usages :
      1) piloté par film.js : WIZ_FILM.scenes = { s1: { kind: "brand"|"generic"|"end", emph, media, portal, owl, count, chips, … } }
@@ -489,7 +489,7 @@
   };
 
   /* CARTE DE FIN : volets en cascade, logo géant, slogan (verbatim) en pastille mot à mot, hibou joyeux, confettis,
-     signature Wizdi (logo), wizdi.school, Copyright © 2026 Wizdi. All rights reserved */
+     signature Wizdi (logo), www.wizdi.school, Copyright © 2026 Wizdi. All rights reserved */
   const end = (k, sc) => {
     ensureLogo();
     const t0 = T0(k), E = LAY.end;
@@ -536,7 +536,7 @@
       const ow = Object.assign({ pose: "joy" }, E.owl, sc.owl || {});
       owl(ow.pose, ow.x, ow.y, ow.h, WT(k, idx[0] || 0) + 0.3, null, "bottom", { hops: [tLast + 0.05, tLast + 0.9] });
     }
-    /* signature Wizdi + wizdi.school + copyright exact */
+    /* signature Wizdi + www.wizdi.school + copyright exact */
     const tSig = Math.min(WE(k, idx[idx.length - 1] || 0) + 0.25, DUR - 0.6);
     const sig = $("div", "abs", hud);
     css(sig, { left: SL.x - E.sig.w / 2 + "px", top: E.sig.y - E.sig.h / 2 + "px", width: E.sig.w + "px", height: E.sig.h + "px" });
@@ -544,7 +544,7 @@
     css(so, { left: "auto", right: "0", top: "0", height: E.sig.h * 0.98 + "px", width: "auto" });
     const sw = Z.wordmark(sig, "wizdi");
     css(sw.wrap, { left: "0", top: E.sig.h * 0.16 + "px", width: E.sig.w * 0.68 + "px", fontSize: E.sig.w * 0.68 * sw.ratio + "px" });
-    const url = $("div", "sig2 url2", hud, "wizdi.school");
+    const url = $("div", "sig2 url2", hud, ((window.WIZ_BRAND || {}).url) || "www.wizdi.school");
     css(url, { width: W + "px", top: E.url.y - E.url.size / 2 + "px", fontSize: E.url.size + "px", color: NAVY });
     const copy = $("div", "sig2 copy2", hud, "Copyright © 2026 Wizdi. All rights reserved");
     css(copy, { width: W + "px", top: E.copy.y - E.copy.size / 2 + "px", fontSize: E.copy.size + "px", color: rgba(NAVY, 0.7) });
